@@ -46,4 +46,16 @@ public class HotelServieImpl implements HotelService{
 		hotelDao.houseDel(hotel);
 	}
 
+
+	@Override
+	public void houseEdit(Hotel hotel) {
+		hotelDao.houseEdit(hotel);
+	}
+
+
+	@Override
+	public Hotel getHouseByRoomId(Integer roomId) {
+		return hotelDao.getHouseByRoomId(roomId);
+	}
+
 }

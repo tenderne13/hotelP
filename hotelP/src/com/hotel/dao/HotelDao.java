@@ -15,4 +15,8 @@ public interface HotelDao {
 	 void addHouse(Hotel hotel);
 	 //删除房间
 	 void houseDel(Hotel hotel);
+	 //编辑房间
+	 void houseEdit(Hotel hotel);
+	 //根据roomId获得房间信息
+	 Hotel getHouseByRoomId(Integer roomId);
 }

@@ -1,6 +1,7 @@
 package com.hotel.dao.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import sun.awt.HToolkit;
@@ -109,6 +111,49 @@ public class HotelDaoImpl implements HotelDao{
 	public void houseDel(Hotel hotel) {
 		String sql="delete from t_house where roomId ="+hotel.getRoomId();
 		jdbcTemplate.update(sql);
+	}
+
+
+	@Override
+	public void houseEdit(final Hotel hotel) {
+		String sql=" update t_house set name=?,price=?,category=?,photo=? where roomId=?";
+		jdbcTemplate.update(sql,new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, hotel.getName());
+				ps.setDouble(2, hotel.getPrice());
+				ps.setString(3, hotel.getCategory());
+				ps.setString(4, hotel.getPhoto());
+				ps.setInt(5, hotel.getRoomId());
+			}
+		});
+	}
+
+
+	@Override
+	public Hotel getHouseByRoomId(Integer roomId) {
+		String sql="select * from t_house where roomId="+roomId;
+		List<Hotel> hotelList =jdbcTemplate.query(sql, new RowMapper<Hotel>(){
+
+			@Override
+			public Hotel mapRow(ResultSet rs, int num) throws SQLException {
+				Hotel hotel=new Hotel();
+				hotel.setRoomId(rs.getInt("roomId"));
+				hotel.setName(rs.getString("name"));
+				hotel.setCategory(rs.getString("category"));
+				hotel.setPrice(rs.getDouble("price"));
+				return hotel;
+			}
+			
+		});
+		
+		if(hotelList.size()>0){
+			return hotelList.get(0);
+		}else{
+			return null;
+		}
+		
 	}
 
 

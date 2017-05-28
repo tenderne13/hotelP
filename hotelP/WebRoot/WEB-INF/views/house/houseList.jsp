@@ -61,8 +61,7 @@
 							}
 								str+= "<td>"
 									+ "<div class='operate'>"
-									+ "<a href='#' title='查看' onclick='checkIns(\""+listDataJson[i].id+"\",\""+listDataJson[i].objectId+"\")'  class='h-icon i-chek'></a>"
-									+ "<a href='#' title='编辑' onclick='updateIns(\""+listDataJson[i].roomId+"\")'  class='h-icon i-edits'></a>"
+									+ "<a href='#' title='编辑' onclick='updateHotel(\""+listDataJson[i].roomId+"\")'  class='h-icon i-edits'></a>"
 									+ "<a href='#' title='删除' onclick='delIns(\""+listDataJson[i].roomId+"\")' class='h-icon i-delete'></a>"
 									+ "</div>"
 									+ "</td>"
@@ -190,10 +189,8 @@
 			$("#right").load("${ctx}/communityResources/installation/initDetail?type="+type+"&id="+id+"&pageNo="+pageNo);
 		}
 		//更新单个设备页面跳转
-		function updateIns(id,objectId){
-			var type=$("#type").val();
-			var pageNo=$("#pageNo").val();
-			$("#right").load("${ctx}/communityResources/installation/initUpdate?type="+type+"&id="+id+"&pageNo="+pageNo);
+		function updateHotel(roomId){
+			$("#right").load("${ctx}/admin/initHouseEdit?roomId="+roomId);
 		}
 		
 		//删除单个设备,同时删除gis服务器数据

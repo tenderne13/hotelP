@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>房间添加</title>
+<title>房间编辑</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 
@@ -17,24 +17,25 @@
 					<!-- 默认状态 -->
 					<div class="tabuser">
 						<div class="username">
-							<h2 class="t">新增房间</h2>
+							<h2 class="t">编辑房间</h2>
 						</div>
 					</div>
 					<div class="item info-edit">
 						<div class="info">
 							<form action="#" method="post" id="fireplugForm">
 								<input type="hidden" name="type" value="6">
+								<input type="hidden" name="roomId" value="${hotel.roomId}">
 								<ul class="list module-item clearfix">
-									<li class="posrl"><span>房间编号</span><input class="input" type="text" id="name" name="name" placeholder="房间编号" value=""  /><em class="stress" id="locaEm">*</em></li>
+									<li class="posrl"><span>房间编号</span><input class="input" type="text" id="name" name="name" placeholder="房间编号" value="${hotel.name}"  /><em class="stress" id="locaEm">*</em></li>
 									<li class="select"><span>房间类别</span> 
-										<select class="input" id="category" name="category" >
+										<select class="input" id="category" name="category">
 												<option></option>
 												<option value="单人间">单人间</option>
 												<option value="双人间">双人间</option>
 												<option value="商务间">商务间</option>
 										</select>
 									</li>
-									<li><span>价格</span><input class="input" type="text" id="price" name="price" placeholder="价格" /></li>
+									<li><span>价格</span><input class="input" type="text" id="price" name="price" placeholder="价格" value="${hotel.price }" /></li>
 									<li></li>
 									
 									
@@ -57,7 +58,7 @@
 				if(locationCheck()&&cateCheck()&&priceCheck()){
 					var fireplugForm=$("#fireplugForm").serialize();
 					$.post(
-						"${ctx}/admin/houseAdd?"+fireplugForm,function(result){
+						"${ctx}/admin/houseEdit?"+fireplugForm,function(result){
 							if(result=="success"){
 								layer.msg("保存成功!");
 								$("#right").load("${ctx}/admin/houseList");

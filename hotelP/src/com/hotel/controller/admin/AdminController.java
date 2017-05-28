@@ -2,6 +2,7 @@ package com.hotel.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +36,13 @@ public class AdminController {
 	@RequestMapping("initHouseAdd")
 	public String initHouseAdd(){
 		return "house/houseAdd";
+	}
+	
+	@RequestMapping("initHouseEdit")
+	public String initHouseEdit(Integer roomId,Model model){
+		Hotel hotel=hotelService.getHouseByRoomId(roomId);
+		model.addAttribute("hotel",hotel);
+		return "house/houseEdit";
 	}
 	/*--------------以上为页面跳转的方法--------------*/
 	//获取房间列表
@@ -75,5 +83,18 @@ public class AdminController {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+	
+	@RequestMapping(value="houseEdit")
+	@ResponseBody
+	public String houseEdit(Hotel hotel){
+		try {
+			hotelService.houseEdit(hotel);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 }
