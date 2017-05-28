@@ -1,0 +1,10 @@
+@charset "gb2312";
+/* CSS Document */
+
+body, div, ul, li, h1, h2, h3, h4, h5, h6, ol, dl, dt, dd, span, p, img, input{margin:0; padding:0;}
+ul{list-style:none;}
+img{border:0; display:block;}
+.clear{clear:both; }
+a{ text-decoration:none;}
+a:link,a:visited{text-decoration:none;}
+

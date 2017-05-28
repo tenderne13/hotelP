@@ -1,0 +1,170 @@
+﻿@charset "utf-8";
+
+.icon{
+  background: url(../images/loginImg/icon-login.png) no-repeat;
+  display: inline-block; vertical-align: middle;
+}
+.header{
+  background-color: #fff;
+}
+.header-tips{
+  background-color: #354052;
+  height: 25px; line-height: 25px;
+  font-size: 12px; color: #b1b1b1;
+}
+.head-contact,.head-cont,.login{
+  width: 1092px;
+  margin: 0 auto;
+  
+}
+.head-txt{
+  text-align: right
+}
+.i-phone{
+  width: 15px; height: 18px;
+  background-position: 0 -82px; margin-right: 5px;
+}
+.header-cont{
+  background-color: #fff;
+  height: 93px;
+}
+.head-cont .logo{
+  width: 140px; height: 118px;
+  margin-top: -25px;
+}
+.head-title{
+  width: 595px; height: 93px;
+}
+
+.loginbox{
+  position: relative;
+}
+.login{
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+}
+.login-mask{
+  position: absolute; top: 53px; right: 34px;
+  background-color: rgba(0,0,0,.5);
+  border-radius: 8px;
+  padding: 14px 26px;
+  width: 246px; height: 280px;
+  color: #fff;font-size: 12px;
+}
+.login-title{ text-align: center; font-size:18px;}
+.username,.password{ margin-top: 20px; }
+.username .i-usename,.password .i-password{
+  width: 44px; height: 40px;
+  background-position: 0 0;  margin-right: 1px;
+}
+.password .i-password{
+  background-position: 0 -41px;
+}
+.username input,.password input{
+  height: 40px; line-height: 40px; width: 190px;
+  padding-left: 10px;
+  border: 0 none; font-size: 14px;
+}
+.forgetpw{
+  text-align: right; 
+  margin-top: 8px;
+}
+.forgetpw a{
+  color: #fff;
+}
+.btn{
+  margin-top: 24px;
+}
+.btn button{
+  background-color: #2cac61; color: #fff; font-size: 20px; text-align: center;
+  width: 246px; height: 40px; line-height: 40px; 
+  border: 0 none; border-radius: 3px; cursor: pointer;
+}
+
+.slidebox {
+    width: 100%;
+    position: relative;
+    height: 397px;
+    background: #000;
+}
+.slidebox .bd {
+    margin: 0 auto;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+}
+.slidebox .bd ul {
+    width: 100% !important;
+}
+.slidebox .bd li {
+  width: 100% !important;
+  height: 397px;
+  overflow: hidden;
+  text-align: center;
+}
+.slidebox .hd {
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    bottom: 2px;
+    left: 0;
+    height: 10px;
+    line-height: 10px;
+    text-align: center;
+    _background: #000;
+    _filter: alpha(opacity=60);
+}
+.slidebox .hd ul {
+    text-align: center;
+}
+.slidebox .hd li {
+    cursor: pointer;
+    display: inline-block;
+    zoom: 1;
+    width: 10px;
+    height: 10px;
+    background-color: #ecf0f1;
+    border-radius: 50%;
+    margin:0 4px;
+    overflow: hidden;
+    line-height: 9999px;
+}
+.slidebox .hd li.on{
+  background-color: #41c2a4;
+  width: 20px;
+  border-radius: 10px;
+}
+
+.content{
+  background-color: #fff;
+  padding: 50px 0 30px;
+}
+.content .list{
+  width: 1060px;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+.content li{
+  width: 155px; height: 210px;
+  margin: 0 55px; float: left;
+  font-size: 20px; text-align: center;
+}
+.content img{
+  display: block;
+}
+.content span{
+  display: inline-block;
+  padding-top: 15px;
+}
+
+.footer{
+  height: 39px; line-height: 39px;
+  background-color: #2d3e50; color: #fff; text-align: center;
+}
+
+
+
+
+
+
+
+
