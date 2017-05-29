@@ -24,6 +24,14 @@
     </mvc:annotation-driven>
     
     
+    <mvc:interceptors>
+     	<mvc:interceptor>
+     	 	<mvc:mapping path="/**"/>
+     	 	<bean class="com.hotel.common.interceptor.AdminLoginInterceptor"></bean>
+     	</mvc:interceptor>
+    
+    </mvc:interceptors>
+    
 	<!-- 默认扫描的包路径 -->
     <context:component-scan base-package="com.hotel" > 
   		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -40,20 +48,6 @@
         <property name="prefix" value="/WEB-INF/views/" />  
         <property name="suffix" value=".jsp" />  
     </bean>  
-    <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8"/>
-		
-			maxInMemorySize 上传的缓存
-			maxUploadSize 最大文件上传大小
-		<property name="maxInMemorySize" value=""/>
-		<property name="maxUploadSize" value=""/>
-		
-	</bean> -->
-	<!-- 
-	<bean id="monitoringInterceptor" class="org.javasimon.spring.MonitoringInterceptor"/>
-    <aop:config>
-        <aop:pointcut id="monitoringPointcut" expression="execution(* com.sino.ucenter.*(..))"/>
-        <aop:advisor advice-ref="monitoringInterceptor" pointcut-ref="monitoringPointcut"/>
-    </aop:config>
-     -->
+    
+    
 </beans>

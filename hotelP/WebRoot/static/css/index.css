@@ -1823,6 +1823,7 @@
   font-size: 12px;
   text-align: center;
   margin-left: 8px;
+  cursor:pointer;
 }
 /* line 1162, ../sass/index.scss */
 .page .cur, .page a:hover {

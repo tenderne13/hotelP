@@ -17,6 +17,7 @@ import sun.awt.HToolkit;
 
 import com.hotel.common.Page;
 import com.hotel.dao.HotelDao;
+import com.hotel.po.AdminUser;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
 
@@ -154,6 +155,22 @@ public class HotelDaoImpl implements HotelDao{
 			return null;
 		}
 		
+	}
+
+
+	@Override
+	public AdminUser checkUser(AdminUser adminUser) {
+		String sql="select * from t_admin where username='"+adminUser.getUserName()+"' and password ='"+adminUser.getPassword()+"'";
+		List<Map<String, Object>> list=jdbcTemplate.queryForList(sql);
+		System.out.println(list);
+		if(list.size()>0){
+			Map<String,Object> map = list.get(0);
+			adminUser.setName((String)map.get("name"));
+			adminUser.setUserName((String)map.get("userName"));
+			return adminUser;
+		}else{
+			return null;
+		}
 	}
 
 

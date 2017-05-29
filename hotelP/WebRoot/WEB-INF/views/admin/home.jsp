@@ -26,7 +26,7 @@ html,body {
 	$(function(){
 		
 		$('#left').load("${ctx}/admin/home?position=left",function(){
-			//$('#right').load("${ctx}/condition/gis/conditionMap");
+			$('#right').load("${ctx}/admin/houseList");
 		});
 		$('#top').load("${ctx}/admin/home?position=top");
 	})

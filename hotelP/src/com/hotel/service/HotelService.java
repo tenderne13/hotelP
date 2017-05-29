@@ -1,6 +1,7 @@
 package com.hotel.service;
 
 import com.hotel.common.Page;
+import com.hotel.po.AdminUser;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
 
@@ -15,4 +16,6 @@ public interface HotelService {
 	void houseEdit(Hotel hotel);
 	 //根据roomId获得房间信息
 	 Hotel getHouseByRoomId(Integer roomId);
+	//检查登录请求
+	 AdminUser checkUser(AdminUser adminUser);
 }

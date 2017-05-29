@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotel.common.Page;
 import com.hotel.dao.HotelDao;
+import com.hotel.po.AdminUser;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
 import com.hotel.service.HotelService;
@@ -56,6 +57,12 @@ public class HotelServieImpl implements HotelService{
 	@Override
 	public Hotel getHouseByRoomId(Integer roomId) {
 		return hotelDao.getHouseByRoomId(roomId);
+	}
+
+
+	@Override
+	public AdminUser checkUser(AdminUser adminUser) {
+		return hotelDao.checkUser(adminUser);
 	}
 
 }
