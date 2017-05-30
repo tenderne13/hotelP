@@ -144,6 +144,7 @@ public class HotelDaoImpl implements HotelDao{
 				hotel.setName(rs.getString("name"));
 				hotel.setCategory(rs.getString("category"));
 				hotel.setPrice(rs.getDouble("price"));
+				hotel.setPhoto(rs.getString("photo"));
 				return hotel;
 			}
 			

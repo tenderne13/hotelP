@@ -601,7 +601,7 @@
 .items .btn-box {
   font-size: 0;
   margin-left: 126px;
-  margin-top: 15px;
+  margin-top: 0px;
 }
 /* line 394, ../sass/index.scss */
 .items .btn-box a {

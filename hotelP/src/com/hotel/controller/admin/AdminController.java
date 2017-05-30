@@ -1,15 +1,26 @@
 package com.hotel.controller.admin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.hotel.common.Page;
+import com.hotel.common.Paths;
 import com.hotel.po.AdminUser;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
@@ -22,11 +33,13 @@ public class AdminController {
 	@Autowired
 	private HotelService hotelService;
 	
+	//登录页面跳转
 	@RequestMapping("/initLogin")
 	public String initLogin(){
 		return "admin/login";
 	}
 	
+	//注销
 	@RequestMapping("logout")
 	public String logout(HttpSession httpSession){
 		httpSession.invalidate();
@@ -57,6 +70,7 @@ public class AdminController {
 		return "admin/house/houseEdit";
 	}
 	/*--------------以上为页面跳转的方法--------------*/
+	//登录请求
 	@RequestMapping(value="login")
 	@ResponseBody
 	public String login(AdminUser adminUser,HttpSession httpSession){
@@ -114,6 +128,7 @@ public class AdminController {
 	}
 	//public boyfriend is xiaopeng Li; jiaxinqi is beautiful;
 	//@ni kending shi pianwode ,ok ?
+	//编辑保存房间信息
 	@RequestMapping(value="houseEdit")
 	@ResponseBody
 	public String houseEdit(Hotel hotel){
@@ -125,5 +140,32 @@ public class AdminController {
 			return "error";
 		}
 		
+	}
+	
+	@RequestMapping(value="uploadImage",produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String uploadImage(@RequestParam("imagefile") MultipartFile file,HttpServletRequest request){
+		String realPath=Paths.getIMAGE_REAL_PATH();//E:/data/image
+		String originalFileName=null;
+		Map<String,Object> map=new HashMap<String, Object>();
+		
+		//获得随机图片名
+		originalFileName=file.getOriginalFilename();
+		String[] suffix=originalFileName.split("\\.");
+		originalFileName=UUID.randomUUID().toString()+"."+suffix[suffix.length-1];
+		
+		
+		//将图片流写入到硬盘中
+		try {
+			FileUtils.copyInputStreamToFile(file.getInputStream(), new File(realPath, originalFileName));
+			map.put("msg", "success");
+			map.put("imageUrl",Paths.getStaticAccessTempUrl(originalFileName));
+			map.put("photo", Paths.getPhotoPath(originalFileName));
+			return JSON.toJSONString(map);
+		} catch (IOException e) {
+			e.printStackTrace();
+			map.put("msg", "上传失败");
+			return JSON.toJSONString(map);
+		}
 	}
 }

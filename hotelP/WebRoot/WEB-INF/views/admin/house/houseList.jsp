@@ -42,8 +42,9 @@
 					if(listDataJson!=null){
 						for ( var i = 0; i < listDataJson.length; i++) {
 							str+="<tr class='tr-td'>"
-									+ "<td>"
+									+ "<td><img src='${ctx}/"
 									+ listDataJson[i].photo
+									+ "' id='image' width='80' height='80'>"
 									+ "</td>"
 									+ "<td>"
 									+ listDataJson[i].name

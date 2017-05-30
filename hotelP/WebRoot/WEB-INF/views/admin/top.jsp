@@ -19,7 +19,7 @@
 				<li class="username"><a href="#"><img
 						src="${ctx}/static/images/userphoto.png" height="34"
 						width="34" alt="">${sessionScope.adminUser.name }</a></li>
-				<li class="quit"><a id="user_logout" href="javascript:void(0)"><i
+				<li class="quit"><a id="user_logout" href="#" onclick="logout()"><i
 						class="icon i-quit"></i>注销</a>
 				</li>
 			</ul>
@@ -29,9 +29,9 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$("#user_logout").click( function() {
+		function logout(){
 			window.location.href = "${ctx}/admin/logout";
-		});
+		}
 	</script>
 </body>
 </html>

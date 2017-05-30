@@ -29,18 +29,17 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp,
 			Object arg2) throws Exception {
 		
-		System.out.println("------------进入拦截器----------------");
 		String url=req.getRequestURI();
 		if(url.indexOf("login")>=0){
 			return true;
 		}
 		AdminUser adminUser=(AdminUser) req.getSession().getAttribute("adminUser");
 		if(adminUser!=null){
-			System.out.println("有用户session");
 			return true;
 		}
 		
 		//resp.sendRedirect("/WEB-INF/views/admin/login.jsp");
+		//resp.sendRedirect(req.getContextPath()+"/admin/initLogin");
 		req.getRequestDispatcher("/WEB-INF/views/admin/login.jsp").forward(req, resp);
 		return false;
 	}

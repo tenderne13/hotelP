@@ -7,7 +7,6 @@
 <title>房间添加</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
-
 </head>
 <body>
 	    
@@ -36,6 +35,24 @@
 									</li>
 									<li><span>价格</span><input class="input" type="text" id="price" name="price" placeholder="价格" /></li>
 									<li></li>
+									
+									<li class="w100 photo"><span class="fl">添加照片</span>
+										<div class="picture min-pics fl">
+											<div class="pics">
+												<input type="hidden" name="photo" id="photo">
+												<img src="" alt="icon" id="image" width="180" height="180">
+											</div>
+											
+										</div>
+									</li>
+									<li></li>
+									
+									
+									<li class="w100 photo">
+										<div class="addpic posrl fl">
+											<input  type="file" id="upload" name="imagefile" accept="image/jpg,image/png,image/gif"  onchange="ajaxFileUpload()"/>
+										</div>
+									</li>
 									
 									
 								</ul>
@@ -98,7 +115,7 @@
 				return true;
 			}
 		}
-		
+		//校验价格是否为空
 		function priceCheck(){
 			var price =$("#price").val();
 			if(price.trim()==''){
@@ -107,6 +124,28 @@
 			}else{
 				return true;
 			}
+		} 
+		
+		//上传图片方法
+		function ajaxFileUpload(){
+			$.ajaxFileUpload({
+                url:'${ctx}/admin/uploadImage',//用于文件上传的服务器端请求地址
+                secureuri:false ,//一般设置为false
+                fileElementId:'upload',//文件上传控件的id属性  <input type="file" id="upload" name="upload" />
+                dataType: 'json',//返回值类型 一般设置为json
+                success: function (data)  //服务器成功响应处理函数
+                {
+                	if(data.msg=="success"){
+                		$("#photo").val(data.photo);
+                    	$("#image").attr("src",data.imageUrl);
+                	}
+                	
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            });
 		}
 		</script>
 </body>
