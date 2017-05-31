@@ -42,7 +42,7 @@
 									<li class="w100 photo"><span class="fl">添加照片</span>
 										<div class="picture min-pics fl">
 											<div class="pics">
-												<input type="hidden" name="photo" id="photo">
+												<input type="hidden" name="photo" id="photo" value="${hotel.photo}">
 												<img src="${ctx}${hotel.photo}" alt="icon" id="image" width="180" height="180">
 											</div>
 											
