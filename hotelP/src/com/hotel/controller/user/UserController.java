@@ -7,4 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
+	@RequestMapping("initRegist")
+	public String initRegist(){
+		return "user/regist";
+	}
 }
