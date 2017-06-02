@@ -10,92 +10,79 @@
 <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" type="text/css"/>
 <title>会员注册</title>
 <script>
-	function checkForm(){
-		// 校验用户名:
-		// 获得用户名文本框的值:
-		var username = document.getElementById("username").value;
-		if(username == null || username == ''){
-			alert("用户名不能为空!");
-			return false;
-		}
-		// 校验密码:
-		// 获得密码框的值:
-		var password = document.getElementById("password").value;
-		if(password == null || password == ''){
-			alert("密码不能为空!");
-			return false;
-		}
-		// 校验确认密码:
-		var repassword = document.getElementById("repassword").value;
-		if(repassword != password){
-			alert("两次密码输入不一致!");
-			return false;
-		}
-	}
-	
+	//检查用户名是否被注册
 	function check(){
-		var username=$("#username").val();
-	 	var url="${pageContext.request.contextPath}/user/validate.do?time="+new Date().getTime();
-	 	var sendData={
-				"username" :username
-			};
-	 	//alert(username);
-	 	if(username==''){
-	 		$("#span1").html("<font color='red'>用户名不能为空</font>");
-	 	}else{
-		 	$.post(url,sendData,function(backData){
-		 		//alert(backData);
-		 		if(backData=="success"){
-		 			$("#span1").html("<font color='green'>此用户名可用</font>");
-		 		}else if(backData=="error"){
-		 			$("#span1").html("<font color='red'>此用户名已被注册</font>");
-		 		}
-		 	});
-		 }
-	}
-	
-	function checkUsername(){
-		// 获得文件框值:
-		var username = document.getElementById("username").value;
-		// 1.创建异步交互对象
-		var xhr = createXmlHttp();
-		// 2.设置监听
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4){
-				if(xhr.status == 200){
-					document.getElementById("span1").innerHTML = xhr.responseText;
-				}
-			}
+		var userName=$("#username").val();
+		if(userName.trim()==''){
+			$("#span1").html("<font color='red'>用户名不能为空</font>");
+			return false;
 		}
-		// 3.打开连接
-		xhr.open("GET","${pageContext.request.contextPath}/user_findByName.action?time="+new Date().getTime()+"&username="+username,true);
-		// 4.发送
-		xhr.send(null);
+		
+		//向服务端ajax请求用户名校验
+		$.post(
+			"${ctx}/user/checkUserName",{
+				userName:userName
+			},function(message){
+				if(message=='success'){
+					$("#span1").html("<font color='green'>用户名可以使用</font>");
+					return true;
+				}else{
+					$("#span1").html("<font color='red'>用户名已被注册</font>");
+					return false;
+				}
+			}	
+		);
+		
 	}
 	
-	function createXmlHttp(){
-		   var xmlHttp;
-		   try{ // Firefox, Opera 8.0+, Safari
-		        xmlHttp=new XMLHttpRequest();
-		    }
-		    catch (e){
-			   try{// Internet Explorer
-			         xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
-			      }
-			    catch (e){
-			      try{
-			         xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
-			      }
-			      catch (e){}
-			      }
-		    }
-
-			return xmlHttp;
-		 }
 	
-	function change(){
-		var img1 = document.getElementById("checkImg");
-		img1.src="${pageContext.request.contextPath}/checkImg.action?"+new Date().getTime();
+	//向服务器提交注册信息
+	function  regist(){
+		if($("#span1").text()=='用户名已被注册'){
+			layer.msg("用户名已被注册");
+			return false;
+		}
+		if(checkForm()){
+			$.post(
+				"${ctx}/user/regist?"+$("#registerForm").serialize(),function(data){
+					if(data=='success'){
+						layer.msg("注册成功");
+						openMiddle('${ctx }/user/initLogin');
+					}else{
+						layer.alert("服务器异常请重试");
+					}
+				}
+			);
+		}
+	}
+	
+	function checkForm(){
+		var userName=$("#username").val();
+		if(userName.trim()==''){
+			$("#span1").html("<font color='red'>用户名不能为空</font>");
+			return false;
+		}
+		
+		var password=$("#password").val();
+		var repassword=$("#repassword").val();
+		if(password.trim()==''){
+			layer.msg("密码不能为空");
+			return false;
+		}
+		
+		if(password!=repassword){
+			layer.msg("两次密码不一致");
+			return false;
+		}
+		
+		var nickName=$("#nickName").val();
+		if(password.trim()==''){
+			layer.msg("请输入姓名");
+			return false;
+		}
+		
+		return true;
+		
 	}
 </script>
 </head>
@@ -110,14 +97,14 @@
 					<div>
 					
 					</div>
-					<form id="registerForm" action="${ pageContext.request.contextPath }/user/regist.do"  method="post" novalidate="novalidate" onsubmit="return checkForm();">
+					<form id="registerForm" action="#"  method="post" novalidate="novalidate" >
 						<table>
 							<tbody><tr>
 								<th>
 									<span class="requiredField">*</span>用户名:
 								</th>
 								<td>
-									<input type="text" id="username" name="username" class="text" maxlength="20" onblur="check()"/>
+									<input type="text" id="username" name="userName" class="text" maxlength="20" onblur="check()"/>
 									<span id="span1"></span>
 								</td>
 							</tr>
@@ -135,7 +122,7 @@
 									<span class="requiredField">*</span>确认密码:
 								</th>
 								<td>
-									<input id="repassword" type="password" name="repassword" placeholder="再次输入您的登录密码" class="text" maxlength="20" autocomplete="off"/>
+									<input id="repassword" type="password" name="repassword"  class="text" maxlength="20" autocomplete="off"/>
 								</td>
 							</tr>
 							<tr>
@@ -143,7 +130,7 @@
 									姓名:
 								</th>
 								<td>
-										<input type="text" name="name" class="text" maxlength="200"/>
+										<input type="text" name="nickName" class="text" maxlength="200" id="nickName"/>
 										<span></span>
 								</td>
 							</tr>
@@ -153,35 +140,25 @@
 									电话:
 								</th>
 								<td>
-										<input type="text" name="phone" class="text" />
+										<input type="text" name="mobile" class="text" />
 								</td>
 							</tr>
 							
 							<tr>
 								<th>
-									地址:
+									邮箱:
 								</th>
 								<td>
-										<input type="text" name="addr" class="text" maxlength="200"/>
+										<input type="text" name="email" class="text" maxlength="200"/>
 										<span></span>
 								</td>
 							</tr>
-						<tr>
-							<th>
-								<span class="requiredField">*</span>验证码:
-							</th>
-							<td>
-								<span class="fieldSet">
-									<input type="text" id="checkcode" name="checkcode" class="text captcha" maxlength="4" autocomplete="off"><img id="checkImg" class="captchaImage" src="${pageContext.request.contextPath}/checkImg.action" onclick="change()" title="点击更换验证码">
-								</span>
-							</td>
-						</tr>
 						<tr>
 							<th>&nbsp;
 								
 							</th>
 							<td>
-								<input type="submit" class="submit" value="同意以下协议并注册">
+								<input type="button" class="submit" value="同意以下协议并注册" onclick="return regist()">
 							</td>
 						</tr>
 						<tr>
@@ -213,9 +190,6 @@
 					正品保障、正规发票
 				</dd>
 				<dd>
-					货到付款、会员服务
-				</dd>
-				<dd>
 					自由退换、售后上门
 				</dd>
 			</dl>
@@ -223,7 +197,7 @@
 								<dt>已经拥有账号了？</dt>
 								<dd>
 									立即登录即可体验在线购物！
-									<a href="${pageContext.request.contextPath}/">立即登录</a>
+									<a href="#" onclick="openMiddle('${ctx }/user/initLogin')">立即登录</a>
 								</dd>
 							</dl>
 						</div>
@@ -233,4 +207,4 @@
 		</div>
 	</div>
 
-<div id="_my97DP" style="position: absolute; top: -1970px; left: -1970px;"><iframe style="width: 190px; height: 191px;" src="./会员注册 - Powered By Mango Team_files/My97DatePicker.htm" frameborder="0" border="0" scrolling="no"></iframe></div></body></html>
+<div id="_my97DP" style="position: absolute; top: -1970px; left: -1970px;"></div></body></html>

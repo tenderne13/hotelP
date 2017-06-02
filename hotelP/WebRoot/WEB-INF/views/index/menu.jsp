@@ -7,6 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>酒店</title>
+<script type="text/javascript">
+	function logout(){
+		$.post(
+			"${ctx}/user/logout",function(message){
+				$("#top").load("${ctx}/position?meth=menu");
+			}		
+		);
+		
+	}
+</script>
 </head>
 <body>
 
@@ -28,17 +38,16 @@
 	<div class="topNav clearfix">
 		<ul>
 			
-			<c:if test="${sessionScope.userList ==null}">
+			<c:if test="${sessionScope.user ==null}">
 			<li id="headerLogin" class="headerLogin" style="display: list-item;">
-				<a href="${ pageContext.request.contextPath }/user/loginPage.do">登录</a>|</li>
+				<a href="#" onclick="openMiddle('${ctx }/user/initLogin')">登录</a>|</li>
 			<li id="headerRegister" class="headerRegister"
-				style="display: list-item;"><a href="#" onclick="openMiddle('${ pageContext.request.contextPath }/user/initRegist')">注册</a>|
+				style="display: list-item;"><a href="#" onclick="openMiddle('${ctx }/user/initRegist')">注册</a>|
 			</li>
 			</c:if>
-			<c:if test="${sessionScope.userList !=null}">
+			<c:if test="${sessionScope.user !=null}">
 			<li id="headerLogin" class="headerLogin" style="display: list-item;">
-				<c:forEach items="${sessionScope.userList}" var="u">
-					${u.name}
+					${sessionScope.user.nickName}
 				
 				
 			|</li>
@@ -46,9 +55,8 @@
 				<a href="${ pageContext.request.contextPath }/order/findByUid.do?page=1">我的订单</a>
 			|</li>
 			<li id="headerRegister" class="headerRegister"
-				style="display: list-item;"><a href="${ pageContext.request.contextPath }/user/quit.do">退出</a>|
+				style="display: list-item;"><a href="#" onclick="logout()">退出</a>|
 			</li>
-			</c:forEach>
 			</c:if>
 			
 			<li><a>会员中心</a> |</li>

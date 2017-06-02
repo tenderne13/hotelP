@@ -4,7 +4,9 @@ public class User {
 	private Integer id;
 	private String userName;
 	private String password;
-	private String name;
+	private String nickName;
+	private String mobile;
+	private String email;
 	public Integer getId() {
 		return id;
 	}
@@ -23,11 +25,25 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
-		return name;
+	
+	public String getNickName() {
+		return nickName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public User() {
 		super();
@@ -35,7 +51,10 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", password="
-				+ password + ", name=" + name + "]";
+				+ password + ", nickName=" + nickName + ", mobile=" + mobile
+				+ ", email=" + email + "]";
 	}
+	
+	
 	
 }
