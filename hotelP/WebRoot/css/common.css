@@ -30,9 +30,9 @@ body {
 	_width: 100%;
 	_height: 100%;
 	font: 12px tahoma, Arial, Verdana, sans-serif;
-	color: #666666;
-	background-color: #ffffff;
-	background-image: url(../images/Ir2.jpg);
+	color: #393D49;
+	background-color: #f2f2f2;
+	/*background-image: url(../images/Ir2.jpg);*/
 	background-repeat: repeat;
 	background-attachment: fixed;
 	background-position:center top;

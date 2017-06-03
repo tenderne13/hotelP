@@ -77,7 +77,7 @@ public class UserController {
 	@RequestMapping("logout")
 	@ResponseBody
 	public String logout(HttpSession httpSession){
-		httpSession.invalidate();
+		httpSession.removeAttribute("user");
 		return "success";
 	}
 }

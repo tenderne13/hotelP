@@ -38,6 +38,12 @@ public class IndexController {
 		return "index/roomDetail";
 	}
 	
+	//房间列表页面跳转
+	@RequestMapping("roomList")
+	public String roomList(String category){
+		System.out.println("房间类别是:"+category);
+		return "index/roomList";
+	}
 	/*--------------------------页面跳转方法结束-----------------------------*/
 	//获取首页热门房间
 	@RequestMapping(value="getHotHouses",produces="application/json; charset=utf-8")

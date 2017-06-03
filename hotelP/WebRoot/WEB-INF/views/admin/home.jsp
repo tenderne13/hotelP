@@ -11,8 +11,9 @@
 	rel="stylesheet">
 <link href="${ctx}/static/css/index.css" type="text/css"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/js2.0/layer/layer.js"></script>
+<script type="text/javascript" src="${ctx}/static/layui/lay/dest/layui.all.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"  src="${ctx}/static/js/ajaxfileupload/ajaxfileupload.js"></script>
 <style type="text/css">

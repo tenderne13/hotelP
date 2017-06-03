@@ -40,70 +40,17 @@ function getHotHouses(){
 
 		<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
-					<div class="title">
-						<strong>热门房间</strong>
-						<!-- <a  target="_blank"></a> -->
-					</div>
-					
-					<ul class="tab">
-							<li class="current">
-								<a href="./蔬菜分类.htm?tagIds=1" target="_blank"></a>
-							</li>
-							<li>
-								<a  target="_blank"></a>
-							</li>
-							<li>
-								<a target="_blank"></a>
-							</li>
+				<fieldset class="layui-elem-field">
+				  <legend>热门房间</legend>
+				  <div class="layui-field-box">
+				  	<ul class="tabContent" style="display: block;" id="tabContent">
+						
 					</ul>
+				  </div>
+				</fieldset>
 					
 					
-						<ul class="tabContent" style="display: block;" id="tabContent">
-								
-						</ul>
-			</div>
-		</div>
-		<div class="span24">
-			<div class="friendLink">
-				<dl>
-					<dt>新手指南</dt>
-							<dd>
-								<a  target="_blank">支付方式</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">配送方式</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">售后服务</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">购物帮助</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">蔬菜卡</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">礼品卡</a>
-								|
-							</dd>
-							<dd>
-								<a target="_blank">银联卡</a>
-								|
-							</dd>
-							<dd>
-								<a  target="_blank">亿家卡</a>
-								|
-							</dd>
-							
-					<dd class="more">
-						<a >更多</a>
-					</dd>
-				</dl>
+				
 			</div>
 		</div>
 	</div>

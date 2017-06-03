@@ -8,6 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>酒店</title>
 <script type="text/javascript">
+$(function(){
+	element.init();
+})
 	function logout(){
 		$.post(
 			"${ctx}/user/logout",function(message){
@@ -28,7 +31,7 @@
 	</div>
 	<div class="span9">
 <div class="headerAd">
-	<img src="${ctx}/images/header.jpg" width="320" height="50" alt="正品保障" title="正品保障"/>
+	
 </div>	
 </div>
 	
@@ -72,14 +75,13 @@
 	</div>
 </div>
 <div class="span24">
-	<ul class="mainNav">
-		<li><a href="${ pageContext.request.contextPath }/index" >首页</a> |</li>
-		<li><a href="#">单人间预订</a> |</li>
-		<li><a href="#">双人间预订</a> |</li>
-		<li><a href="#">商务间预订</a> |</li>
-		<li><a href="#">留言板</a> |</li>
-
-	</ul>
+	<ul class="layui-nav" lay-filter="menu">
+	  <li class="layui-nav-item layui-this"><a href="#" onclick="openMiddle('${ctx }/position?meth=hotHouses')">首页</a></li>
+	  <li class="layui-nav-item "><a href="#" onclick="openMiddle('${ctx }/roomList?category=单人间')">单人间预订</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">双人间预订</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">商务间预订</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">留言板</a></li>
+	</ul>		
 </div>
 
 
