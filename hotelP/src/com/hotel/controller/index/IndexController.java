@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -40,8 +41,8 @@ public class IndexController {
 	
 	//房间列表页面跳转
 	@RequestMapping("roomList")
-	public String roomList(String category){
-		System.out.println("房间类别是:"+category);
+	public String roomList(String category,Model model){
+		model.addAttribute("category",category);
 		return "index/roomList";
 	}
 	/*--------------------------页面跳转方法结束-----------------------------*/
@@ -54,6 +55,19 @@ public class IndexController {
 		page.setPageSize(15);
 		Hotel hotel=new Hotel();
 		Order order=new Order();
+		hotelService.selectHousePage(page, hotel,order);
+		return page.toJson();
+	}
+	
+	@RequestMapping(value="getHousesByCategory",produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getHousesByCategory(@RequestParam(value="pageSize",defaultValue="8")Integer pageSize,
+						@RequestParam(value="pageNo",defaultValue="1")Integer pageNo,Hotel hotel,Order order,
+						String reserveTime){
+		Page<Hotel> page=new Page<Hotel>();
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		order.setReserveTime(reserveTime);
 		hotelService.selectHousePage(page, hotel,order);
 		return page.toJson();
 	}

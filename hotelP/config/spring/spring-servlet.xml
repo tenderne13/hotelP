@@ -25,9 +25,16 @@
     
     
     <mvc:interceptors>
+    	<!-- 后台拦截器 -->
      	<mvc:interceptor>
      	 	<mvc:mapping path="/admin/**"/>
      	 	<bean class="com.hotel.common.interceptor.AdminLoginInterceptor"></bean>
+     	</mvc:interceptor>
+     	
+     	<!-- 前台拦截器 -->
+     	<mvc:interceptor>
+     	 	<mvc:mapping path="/user/**"/>
+     	 	<bean class="com.hotel.common.interceptor.UserLoginInterceptor"></bean>
      	</mvc:interceptor>
     
     </mvc:interceptors>

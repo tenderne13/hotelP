@@ -39,33 +39,21 @@ $(function(){
 <div class="span10 last">
 	
 	<div class="topNav clearfix">
-		<ul>
-			
-			<c:if test="${sessionScope.user ==null}">
-			<li id="headerLogin" class="headerLogin" style="display: list-item;">
-				<a href="#" onclick="openMiddle('${ctx }/user/initLogin')">登录</a>|</li>
-			<li id="headerRegister" class="headerRegister"
-				style="display: list-item;"><a href="#" onclick="openMiddle('${ctx }/user/initRegist')">注册</a>|
-			</li>
-			</c:if>
-			<c:if test="${sessionScope.user !=null}">
-			<li id="headerLogin" class="headerLogin" style="display: list-item;">
-					${sessionScope.user.nickName}
-				
-				
-			|</li>
-			<li id="headerLogin" class="headerLogin" style="display: list-item;">
-				<a href="${ pageContext.request.contextPath }/order/findByUid.do?page=1">我的订单</a>
-			|</li>
-			<li id="headerRegister" class="headerRegister"
-				style="display: list-item;"><a href="#" onclick="logout()">退出</a>|
-			</li>
-			</c:if>
-			
-			<li><a>会员中心</a> |</li>
-			<li><a>购物指南</a> |</li>
-			<li><a>关于我们</a></li>
-		</ul>
+		<span class="layui-breadcrumb" lay-separator="|" style="margin-left:90px">
+		  <c:if test="${sessionScope.user ==null}">
+		  	<a href="javaScript:;" onclick="openMiddle('${ctx }/user/initLogin')">登录</a>
+		    <a href="javaScript:;" onclick="openMiddle('${ctx }/user/initRegist')">注册</a>
+		  </c:if>
+		  
+		  <c:if test="${sessionScope.user !=null}">
+		  	<a href="javaScript:;" >${sessionScope.user.nickName}</a>
+		    <a href="javaScript:;" onclick="openMiddle('${ctx }/user/initRegist')">我的订单</a>
+		    <a href="javaScript:;" onclick="logout()">注销</a>
+		  </c:if>
+		  
+		  
+		  <a href="javaScript:;" >会员中心</a>
+		</span>
 	</div>
 	<div class="cart">
 		<a href="${ pageContext.request.contextPath }/cart/myCart.do">购物车</a>
@@ -78,10 +66,12 @@ $(function(){
 	<ul class="layui-nav" lay-filter="menu">
 	  <li class="layui-nav-item layui-this"><a href="#" onclick="openMiddle('${ctx }/position?meth=hotHouses')">首页</a></li>
 	  <li class="layui-nav-item "><a href="#" onclick="openMiddle('${ctx }/roomList?category=单人间')">单人间预订</a></li>
-	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">双人间预订</a></li>
-	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">商务间预订</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList?category=双人间')">双人间预订</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList?category=商务间')">商务间预订</a></li>
 	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">留言板</a></li>
-	</ul>		
+	</ul>	
+	
+		
 </div>
 
 

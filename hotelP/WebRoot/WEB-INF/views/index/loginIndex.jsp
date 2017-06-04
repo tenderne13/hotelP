@@ -42,7 +42,7 @@ layui.use(['form','element','layer','laypage'], function(){
 $(function(){
 	
 	$("#top").load("${ctx}/position?meth=menu");
-	$("#middle").load("${ctx}/position?meth=hotHouses");
+	$("#middle").load("${ctx}/user/initLogin");
 	$("#bottom").load("${ctx}/position?meth=footer");
 });
 
