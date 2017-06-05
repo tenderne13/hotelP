@@ -1,13 +1,19 @@
 package com.hotel.controller.user;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hotel.po.Hotel;
+import com.hotel.po.Order;
 import com.hotel.po.User;
+import com.hotel.service.HotelService;
 import com.hotel.service.UserService;
 
 @Controller
@@ -16,7 +22,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private HotelService hotelService;
 	
 	//注册页面跳转
 	@RequestMapping("initRegist")
@@ -28,6 +35,17 @@ public class UserController {
 	@RequestMapping("initLogin")
 	public String initLogin(){
 		return "user/login";
+	}
+	
+	//预定页跳转
+	@RequestMapping("initPay")
+	public String initPay(Hotel hotel,Order order,Model model){
+		hotel=hotelService.getHouseByRoomId(hotel.getRoomId());
+		String orderCodes=UUID.randomUUID().toString().replaceAll("-", "").substring(0, 12);
+		order.setOrderCodes(orderCodes);
+		model.addAttribute("hotel",hotel);
+		model.addAttribute("order",order);
+		return "user/order";
 	}
 	
 	/*-------------------以上为页面跳转-------------------*/

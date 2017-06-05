@@ -47,7 +47,7 @@ $(function(){
 		  
 		  <c:if test="${sessionScope.user !=null}">
 		  	<a href="javaScript:;" >${sessionScope.user.nickName}</a>
-		    <a href="javaScript:;" onclick="openMiddle('${ctx }/user/initRegist')">我的订单</a>
+		    <a href="javaScript:;" onclick="openMiddle('${ctx }/user/initPay')">我的订单</a>
 		    <a href="javaScript:;" onclick="logout()">注销</a>
 		  </c:if>
 		  

@@ -2,6 +2,7 @@ package com.hotel.po;
 
 public class Order {
 	private Integer orderId;
+	private String orderCodes;
 	private Integer userId;
 	private Integer roomId;
 	private String reserveTime;
@@ -50,15 +51,23 @@ public class Order {
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	public String getOrderCodes() {
+		return orderCodes;
+	}
+	public void setOrderCodes(String orderCodes) {
+		this.orderCodes = orderCodes;
+	}
 	public Order() {
 		super();
 	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", userId=" + userId + ", roomId="
-				+ roomId + ", reserveTime=" + reserveTime + ", createTime="
-				+ createTime + ", orderStatus=" + orderStatus + ", totalPrice="
-				+ totalPrice + "]";
+		return "Order [orderId=" + orderId + ", orderCodes=" + orderCodes
+				+ ", userId=" + userId + ", roomId=" + roomId
+				+ ", reserveTime=" + reserveTime + ", createTime=" + createTime
+				+ ", orderStatus=" + orderStatus + ", totalPrice=" + totalPrice
+				+ "]";
 	}
 	
 }

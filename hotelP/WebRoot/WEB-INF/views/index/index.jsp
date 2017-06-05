@@ -24,7 +24,7 @@
 		margin-top:10px;
 	}
 	#bottom{
-		margin-top:10px;
+		margin-top:250px;
 	}
 </style>
 <script type="text/javascript">

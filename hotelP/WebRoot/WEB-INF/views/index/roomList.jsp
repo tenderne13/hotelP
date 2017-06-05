@@ -77,13 +77,19 @@
 					 	 '</tr>';
 				}else{
 					str+='<td><button class="layui-btn layui-btn-warm" onclick="openMiddle(\'${ctx}/initRoomDetail?roomId='+item.roomId+'\')"><i class="layui-icon">&#xe615;</i></button>'+
-						     '<button class="layui-btn">预订</button></td></tr>';
+						     '<button class="layui-btn" onclick="initPay(\''+item.roomId+'\')">预订</button></td></tr>';
 				}
 				
 				arr.push(str);
 						
 			});
 			return arr.join('');
+		}
+		
+		
+		function initPay(roomId){
+			var reserveTime=$("#reserveTime").val();
+			openMiddle("${ctx}/user/initPay?roomId="+roomId+"&reserveTime="+reserveTime);
 		}
 </script>
 </head>
@@ -105,7 +111,7 @@
 			  <div class="layui-inline">
 			      <label class="layui-form-label">预订日期</label>
 			      <div class="layui-input-inline">
-			        <input type="text" name="reserveTime" id="reserveTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this,min: laydate.now(0)})">
+			        <input type="text" name="reserveTime" id="reserveTime" readonly="readonly" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this,min: laydate.now(0)})">
 			      </div>
 		   	  </div>
 			  <div class="layui-inline">
