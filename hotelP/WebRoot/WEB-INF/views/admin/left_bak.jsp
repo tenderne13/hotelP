@@ -6,9 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 <script type="text/javascript">
-	var element;
 	layui.use('element', function(){
-		  element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
+		  var element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
 		  
 		  //监听导航点击
 		  element.on('nav(demo)', function(elem){
@@ -23,11 +22,11 @@
 		<div class="logo">
 			<a href="#" title=""><img
 				src="${ctx}/static/images/logo.png" alt="社会服务管理综合服务平台"
-				width="193" height="160" /> </a>
+				width="193" height="134" /> </a>
 		</div>
 		<div class="menubox scroll-pane" id="sidebar">
 			<div class="menu">
-				<!-- <ul class="nav">
+				<ul class="nav">
 					<li class="first"><a href="#"><i class="icon fr"></i>用户管理</a>
 						<ul class="list">
 								<li class="second"><a href="#"
@@ -65,33 +64,24 @@
 						</ul>
 					</li>
 					
-				</ul> -->
-				<ul class="layui-nav layui-nav-tree" lay-filter="demo">
-				  <li class="layui-nav-item">
-				    <a href="javascript:;">用户管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;">用户管理</a></dd>
-				      <dd><a href="javascript:;">入住管理</a></dd>
-				    </dl>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;">订单管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;">订单管理</a></dd>
-				    </dl>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;">房间管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;" onclick="openright('${ctx }/admin/houseList')">房间管理</a></dd>
-				    </dl>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;">留言管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;">留言管理</a></dd>
-				    </dl>
-				  </li>
+					<c:forEach items="${menu}" var="m">
+						<c:if test="${m.parentId == 0}">
+							<li class="first"><a href="#"><i class="icon fr"></i><img
+									class="sign" src="${ctx }${m.iconPath}" alt="${m.resName}" width="27"
+									height="29" />${m.resName}</a>
+								<ul class="list">
+									<c:forEach items="${menu}" var="mm">
+										<c:if test="${m.id == mm.parentId}">
+											<li class="second"><a href="#"
+												onclick="openright('${ctx }${mm.resUrl}')" title="${mm.resName}"><b
+													class="decor"></b>${mm.resName}</a>
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul>
+							</li>
+						</c:if>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -105,9 +95,6 @@
 	<script type="text/javascript"
 		src="${ctx}/static/js/js2.0/jScrollPane.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/js2.0/common.js">
-	</script>
-	<script type="text/javascript">
-		element.init();
 	</script>
 </body>
 </html>
