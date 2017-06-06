@@ -1,5 +1,6 @@
 package com.hotel.dao;
 
+import com.hotel.po.Order;
 import com.hotel.po.User;
 
 public interface UserDao {
@@ -9,4 +10,6 @@ public interface UserDao {
 	void registUser(User user);
 	//校验登录用户
 	User checkLogin(User user);
+	//确认订单
+	void orderConfirm(Order order);
 }

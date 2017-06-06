@@ -1,5 +1,6 @@
 package com.hotel.service;
 
+import com.hotel.po.Order;
 import com.hotel.po.User;
 
 public interface UserService {
@@ -9,4 +10,6 @@ public interface UserService {
 	void registUser(User user);
 	//校验登录用户
 	User checkLogin(User user);
+	//确认订单
+	void orderConfirm(Order order);
 }

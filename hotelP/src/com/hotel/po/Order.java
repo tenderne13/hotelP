@@ -9,6 +9,8 @@ public class Order {
 	private String createTime;
 	private Integer orderStatus;
 	private Double totalPrice;
+	private String contactPerson;
+	private String mobilePhone;
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -58,6 +60,18 @@ public class Order {
 	public void setOrderCodes(String orderCodes) {
 		this.orderCodes = orderCodes;
 	}
+	public String getContactPerson() {
+		return contactPerson;
+	}
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
 	public Order() {
 		super();
 	}
@@ -67,7 +81,8 @@ public class Order {
 				+ ", userId=" + userId + ", roomId=" + roomId
 				+ ", reserveTime=" + reserveTime + ", createTime=" + createTime
 				+ ", orderStatus=" + orderStatus + ", totalPrice=" + totalPrice
-				+ "]";
+				+ ", contactPerson=" + contactPerson + ", mobilePhone="
+				+ mobilePhone + "]";
 	}
 	
 }

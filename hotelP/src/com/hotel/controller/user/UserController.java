@@ -1,5 +1,7 @@
 package com.hotel.controller.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -48,6 +50,12 @@ public class UserController {
 		return "user/order";
 	}
 	
+	//确认订单成功后跳转页面
+	@RequestMapping("confirmSuccess")
+	public String confirmSuccess(String orderCodes,Model model){
+		model.addAttribute("orderCodes",orderCodes);
+		return "user/success";
+	}
 	/*-------------------以上为页面跳转-------------------*/
 	
 	//校验用户名是否被注册
@@ -84,7 +92,6 @@ public class UserController {
 		User existUser = userService.checkLogin(user);
 		if(existUser!=null){
 			httpSession.setAttribute("user", existUser);
-			System.out.println("用户信息为："+existUser);
 			return "success";
 		}else{
 			return "error";
@@ -97,5 +104,24 @@ public class UserController {
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute("user");
 		return "success";
+	}
+	
+	//确认订单
+	@RequestMapping("confirmOrder")
+	@ResponseBody
+	public String confirmOrder(Hotel hotel,Order order,HttpSession httpSession){
+		User user=(User) httpSession.getAttribute("user");
+		String createTime=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+		order.setUserId(user.getId());
+		order.setCreateTime(createTime);
+		order.setTotalPrice(hotel.getPrice());
+		try {
+			userService.orderConfirm(order);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 }

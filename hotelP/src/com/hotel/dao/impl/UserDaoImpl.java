@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.hotel.dao.UserDao;
+import com.hotel.po.Order;
 import com.hotel.po.User;
 @Repository(value="userDao")
 public class UserDaoImpl implements UserDao{
@@ -62,6 +63,28 @@ public class UserDaoImpl implements UserDao{
 		}else{
 			return null;
 		}
+	}
+
+	@Override
+	public void orderConfirm(final Order order) {
+		String sql="insert into t_order(userid,roomid,orderCodes,reserveTime,createTime,orderStatus," +
+				   "totalPrice,contactPerson,mobilePhone) values (?,?,?,?,?,0,?,?,?)";
+				
+		
+		jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, order.getUserId());
+				ps.setInt(2, order.getRoomId());
+				ps.setString(3, order.getOrderCodes());
+				ps.setString(4, order.getReserveTime());
+				ps.setString(5, order.getCreateTime());
+				ps.setDouble(6, order.getTotalPrice());
+				ps.setString(7, order.getContactPerson());
+				ps.setString(8, order.getMobilePhone());
+			}
+		});
 	}
 	
 	

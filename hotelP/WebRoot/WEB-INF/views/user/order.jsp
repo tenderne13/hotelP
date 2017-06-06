@@ -17,21 +17,44 @@
 </head>
 <body>
 
-
+<script type="text/javascript">
+	function pay(){
+		var contactPerson=$("#contactPerson").val();
+		var mobilePhone=$("#mobilePhone").val();
+		if(contactPerson.trim()==''){
+			layer.tips('请填写联系人','#contactPerson');
+			$("#contactPerson").focus();
+			return false;
+		}
+		if(mobilePhone.trim()==''){
+			layer.tips('请填写联系方式','#mobilePhone');
+			$("#mobilePhone").focus();
+			return false;
+		}
+		
+		$.post(
+			"${ctx}/user/confirmOrder?"+$("#orderForm").serialize(),function(data){
+				if(data=='success'){
+					layer.msg("订单已生成",{icon:1});
+					var orderCodes=$("#orderCodes").val();
+					openMiddle('${ctx }/user/confirmSuccess?orderCodes='+orderCodes);
+				}
+			}
+		);
+		
+	}
+</script>
 <div class="container cart">
 
 		<div class="span24">
 		
 			<div class="step step1">
-				<blockquote class="layui-elem-quote">订单生成中<i class="layui-icon" style="font-size: 30px; color:green;">&#xe63e;</i></blockquote>
+				<blockquote class="layui-elem-quote">订单生成中。。。</blockquote>
 			</div>
 	
 		
 				<table class="layui-table">
 					<tbody>
-					<tr>
-						<th colspan="5">订单编号:<font color="green">${order.orderCodes }</font></th>
-					</tr>
 					<tr>
 						<th>图片</th>
 						<th>房间号</th>
@@ -67,24 +90,30 @@
 					应付金额: <strong id="effectivePrice" >￥<font color="red">${hotel.price}</font>元</strong>
 				</div>
 			<hr>
-			<form class="layui-form" action="">
-			  <input type="hidden" name="category" id="category" value="${category }"/>
-			  <div class="layui-inline">
+			<form class="layui-form" id="orderForm" action="">
+			  <input type="hidden" name="category" id="category" value="${hotel.category }"/>
+			  <input type="hidden" name="roomId" id="roomId" value="${hotel.roomId }"/>
+			  <input type="hidden" name="name" id="name" value="${hotel.name }"/>
+			  <input type="hidden" name="reserveTime"  value="${order.reserveTime }"/>
+			  <input type="hidden" name="orderCodes" id="orderCodes"  value="${order.orderCodes }"/>
+			  <input type="hidden" name="price"  value="${hotel.price }"/>
+			  <div class="layui-form-item">
 			    <label class="layui-form-label">联系人</label>
 			    <div class="layui-input-block">
-			      <input type="text" style="width:300px" name="username" id="username" lay-verify="title" autocomplete="off" placeholder="请输入联系人" value="${sessionScope.user.nickName}" class="layui-input">
+			      <input type="text" style="width:300px" name="contactPerson" id="contactPerson" lay-verify="title" autocomplete="off" placeholder="请输入联系人" value="${sessionScope.user.nickName}" class="layui-input">
 			    </div>
 			  </div>
 			  
+			  <div class="layui-form-item">
+			      <label class="layui-form-label">联系方式</label>
+			      <div class="layui-input-block">
+			      <input type="text" style="width:300px" name="mobilePhone" id="mobilePhone" lay-verify="title" autocomplete="off" placeholder="请输入联系方式" class="layui-input">
+			   </div>
+			  
 		   	  </div>
 		   	  
-		   	  <div class="layui-form-item">
-			    <div class="layui-inline">
-			      <label class="layui-form-label">联系方式</label>
-			      <div class="layui-inline">
-			      <input type="text" style="width:300px" name="mobile" id="mobile" lay-verify="title" autocomplete="off" placeholder="请输入联系方式" class="layui-input">
-			    </div>
-			  </div>
+			    
+			  </form>
 			  <!-- <hr>
 			  <div class="layui-form-item">
 			    <div class="layui-inline">
@@ -113,13 +142,11 @@
 			  
 			  <div class="layui-form-item">
 			    <div class="layui-inline">
-			    	<a href="javascript:;">
-						<img src="${pageContext.request.contextPath}/images/finalbutton.gif" width="204" height="51" border="0" />
-					</a>
+			    	<button class="layui-btn layui-btn-warm layui-btn-big" onclick="pay()" style="width:200px"><i class="layui-icon">&#xe63c;</i>&nbsp;&nbsp;确认订单</button>
 			    </div>
 			  </div>
 			  
-			</form>
+			
 			
 		</div>
 		

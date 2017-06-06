@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotel.dao.UserDao;
+import com.hotel.po.Order;
 import com.hotel.po.User;
 import com.hotel.service.UserService;
 @Service
@@ -28,6 +29,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User checkLogin(User user) {
 		return userDao.checkLogin(user);
+	}
+
+
+	@Override
+	public void orderConfirm(Order order) {
+		userDao.orderConfirm(order);
 	}
 
 }
