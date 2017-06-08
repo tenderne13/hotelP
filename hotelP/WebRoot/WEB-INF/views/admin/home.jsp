@@ -22,13 +22,24 @@ html,body {
 }
 </style>
 <script type="text/javascript">
+	var laypage;  
+	var layer;  
+	var form;  
+	var element;  
+	var laydate;
+	var navbar;
+	layui.use(['form','element','layer','laypage'], function(){
+			  form = layui.form(); //只有执行了这一步，部分表单元素才会修饰成功
+			  element = layui.element();
+			  laypage=layui.laypage;
+	  	}); 
 	function openright(src) {
 		$('#right').load(src);
 	}
 	$(function(){
 		
 		$('#left').load("${ctx}/admin/home?position=left",function(){
-			$('#right').load("${ctx}/admin/houseList");
+			$('#right').load("${ctx}/admin/orderList");
 		});
 		$('#top').load("${ctx}/admin/home?position=top");
 	})

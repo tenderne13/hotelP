@@ -24,7 +24,9 @@ import com.hotel.common.Paths;
 import com.hotel.po.AdminUser;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
+import com.hotel.po.User;
 import com.hotel.service.HotelService;
+import com.hotel.service.OrderService;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,6 +34,8 @@ public class AdminController {
 
 	@Autowired
 	private HotelService hotelService;
+	@Autowired
+	private OrderService orderService;
 	
 	//登录页面跳转
 	@RequestMapping("/initLogin")
@@ -69,6 +73,13 @@ public class AdminController {
 		model.addAttribute("hotel",hotel);
 		return "admin/house/houseEdit";
 	}
+	
+	//订单页面跳转
+	@RequestMapping("orderList")
+	public String orderList(){
+		return "admin/order/orderList";
+	}
+	
 	/*--------------以上为页面跳转的方法--------------*/
 	//登录请求
 	@RequestMapping(value="login")
@@ -142,6 +153,7 @@ public class AdminController {
 		
 	}
 	
+	//图片上传的方法
 	@RequestMapping(value="uploadImage",produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String uploadImage(@RequestParam("imagefile") MultipartFile file,HttpServletRequest request){
@@ -167,5 +179,18 @@ public class AdminController {
 			map.put("msg", "上传失败");
 			return JSON.toJSONString(map);
 		}
+	}
+	
+	
+	//获取所有的订单列表
+	@RequestMapping(value="getOrderList",produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getOrderList(@RequestParam(value="pageSize",defaultValue="8")Integer pageSize,
+			@RequestParam(value="pageNo",defaultValue="1")Integer pageNo,Hotel hotel,Order order,User user){
+		Page<Order> page=new Page<Order>();
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		orderService.selectOrderPage(page, order, hotel, user);
+		return page.toJson();
 	}
 }

@@ -10,11 +10,10 @@
 	layui.use('element', function(){
 		  element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
 		  
-		  //监听导航点击
+		  /*监听导航点击
 		  element.on('nav(demo)', function(elem){
 		    //console.log(elem)
-		    layer.msg(elem.text());
-		  });
+		  });*/
 		});
 </script>
 </head>
@@ -77,7 +76,7 @@
 				  <li class="layui-nav-item">
 				    <a href="javascript:;">订单管理</a>
 				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;">订单管理</a></dd>
+				      <dd><a href="javascript:;" onclick="openright('${ctx }/admin/orderList')">订单管理</a></dd>
 				    </dl>
 				  </li>
 				  <li class="layui-nav-item">

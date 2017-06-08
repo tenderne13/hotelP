@@ -11,6 +11,22 @@ public class Order {
 	private Double totalPrice;
 	private String contactPerson;
 	private String mobilePhone;
+	/*---------扩展字段----------*/
+	private String roomName;
+	private String photo;
+	
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -75,6 +91,24 @@ public class Order {
 	public Order() {
 		super();
 	}
+	
+	public Order(Integer orderId, String orderCodes,
+			Integer roomId, String reserveTime, String createTime,
+			Integer orderStatus, Double totalPrice, String contactPerson,
+			String mobilePhone, String roomName, String photo) {
+		super();
+		this.orderId = orderId;
+		this.orderCodes = orderCodes;
+		this.roomId = roomId;
+		this.reserveTime = reserveTime;
+		this.createTime = createTime;
+		this.orderStatus = orderStatus;
+		this.totalPrice = totalPrice;
+		this.contactPerson = contactPerson;
+		this.mobilePhone = mobilePhone;
+		this.roomName = roomName;
+		this.photo = photo;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderCodes=" + orderCodes
@@ -82,7 +116,8 @@ public class Order {
 				+ ", reserveTime=" + reserveTime + ", createTime=" + createTime
 				+ ", orderStatus=" + orderStatus + ", totalPrice=" + totalPrice
 				+ ", contactPerson=" + contactPerson + ", mobilePhone="
-				+ mobilePhone + "]";
+				+ mobilePhone + ", roomName=" + roomName + ", photo=" + photo
+				+ "]";
 	}
 	
 }
