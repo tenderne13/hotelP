@@ -23,17 +23,11 @@
 			<div class="name">房间编号: <strong style="color:green;">${hotel.name }</strong></div>
 			<div class="info">
 				<dl>
-					<dt>折扣价:</dt>
+					<dt>价格:</dt>
 					<dd>
-						<strong>￥：${hotel.price }元</strong>
+						<strong>￥：${hotel.price }元/天</strong>
 					</dd>
 				</dl>
-					<dl>
-						<dt>促销:</dt>
-						<dd>
-								<a target="_blank" title="限时抢购 (2014-07-30 ~ 2015-01-01)">限时抢购</a>
-						</dd>
-					</dl>
 					<dl>
 						<dt>    </dt>
 						<dd>

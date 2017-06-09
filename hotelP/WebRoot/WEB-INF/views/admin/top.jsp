@@ -7,7 +7,7 @@
 	.layui-nav
 	.layui-nav-item 
 	a:hover, .layui-nav .layui-this a{
-		color:#FFA500
+		color:#808080
 	}
 	
 	

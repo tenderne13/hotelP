@@ -15,8 +15,7 @@
 			if(currPage==undefined||!currPage){
 				currPage=1;
 			}
-			//getHotHouses();
-			getDate();
+			//getDate();
 			doSearch(currPage);
 		});
 
@@ -32,13 +31,14 @@
 		//查询列表方法
 		function doSearch(pageNo){
 			$.post(
-				"${ctx}/admin/getOrderList",{
+				"${ctx}/user/getOrderList",{
 					pageNo:pageNo,
 					pageSize:pageSize,
 					reserveTime:$("#reserveTime").val(),
 					name:$("#name").val(),
 					orderCodes:$("#orderCodes").val()
 				},function(data){
+					data=JSON.parse(data);
 					var rows=data.rows;
 	        		laypage({
 			  		     cont: 'page',
@@ -56,7 +56,7 @@
 			                	doSearch(obj.curr);
 			                 }
 			  		    }
-			  		  });				
+			  		  });			
 				}
 			);
 		}
@@ -76,11 +76,12 @@
 						'<td>'+item.totalPrice+'</td>';
 				if(item.orderStatus==1){
 					str+='<td>已支付</td>'+
-						'<td><button class="layui-btn" style="width:80px;text-align:center;">入住登记</button></td>'+
+						'<td><button class="layui-btn layui-btn-mini" style="background-color:#DCDCDC" ><i class="layui-icon">&#xe640;</i> </button></td>'+
 				 	 	'</tr>';
 				}else{
 					str+='<td>未支付</td>'+
-						'<td><button class="layui-btn layui-btn-disabled" style="width:80px;text-align:center;">入住登记</button></td>'+
+						'<td><button class="layui-btn layui-btn-mini" >支付</button>'+
+						'<button class="layui-btn layui-btn-mini" title="取消订单" style="background-color:#DCDCDC"><i class="layui-icon">&#x1006;</i> </button></td>'+
 				 	 	'</tr>';
 				}
 						
@@ -101,24 +102,20 @@
 <body>
 
 
-<div class="container index" style="padding-top:75px;">
-		<span class="layui-breadcrumb">
-		  <a href="">首页</a>
-		  <a><cite>订单列表</cite></a>
-		</span>
+<div class="container index" style="padding-top:5px;">
 		
 		<div id="search" style="padding-top: 20px;">
 			<form class="layui-form" action="">
 			  <input type="hidden" name="category" id="category" value="${category }"/>
 			  <div class="layui-inline">
 			    <label class="layui-form-label">房间号</label>
-			    <div class="layui-input-block">
+			    <div class="layui-input-inline">
 			      <input type="text" name="name" id="name" lay-verify="title" autocomplete="off" placeholder="请输入房间号" class="layui-input">
 			    </div>
 			  </div>
 			  <div class="layui-inline">
 			    <label class="layui-form-label">订单编号</label>
-			    <div class="layui-input-block">
+			    <div class="layui-input-inline">
 			      <input type="text" name="orderCodes" id="orderCodes" lay-verify="title" autocomplete="off" placeholder="请输入订单编号" class="layui-input">
 			    </div>
 			  </div>
@@ -129,8 +126,8 @@
 			      </div>
 		   	  </div>
 			  <div class="layui-inline">
-			        <div class="layui-input-block">
-				      <button type="button" class="layui-btn" onclick="doSearch(currPage)">查询</button>
+			        <div class="layui-input-inline">
+				      <button type="button" title="查询" class="layui-btn" onclick="doSearch(currPage)">查询</button>
 				    </div>
 		   	  </div>
 			</form>
@@ -142,7 +139,7 @@
 			    <col>
 			    <col>
 			    <col>
-			    <col width="200">
+			    <col>
 			  </colgroup>
 			  <thead>
 			    <tr>

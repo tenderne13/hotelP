@@ -54,9 +54,12 @@ public class OrderDaoImpl implements OrderDao{
 		}
 		
 		if(hotel!=null && hotel.getRoomId()!=null){
-			sql.append(" and h.name like '%"+hotel.getName()+"%' ");
+			sql.append(" and h.roomid = "+hotel.getRoomId()+" ");
 		}
 		
+		if(hotel!=null && hotel.getName()!=null){
+			sql.append(" and h.name like '%"+hotel.getName()+"%' ");
+		}
 		
 		sql.append(" order by createTime desc");
 		
@@ -122,6 +125,10 @@ public class OrderDaoImpl implements OrderDao{
 		}
 		
 		if(hotel!=null && hotel.getRoomId()!=null){
+			sql.append(" and h.roomid = "+hotel.getRoomId()+" ");
+		}
+		
+		if(hotel!=null && hotel.getName()!=null){
 			sql.append(" and h.name like '%"+hotel.getName()+"%' ");
 		}
 		
