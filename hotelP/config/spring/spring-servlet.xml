@@ -17,9 +17,9 @@
     <!-- 添加注解驱动 -->  
     <mvc:annotation-driven>
     	<mvc:message-converters register-defaults="true">
-		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-		      <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
-		    </bean>
+    		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    			<constructor-arg value="UTF-8"></constructor-arg>
+    		</bean>
 	  	</mvc:message-converters>
     </mvc:annotation-driven>
     

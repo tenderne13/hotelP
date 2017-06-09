@@ -16,6 +16,7 @@ $(function(){
 function getHotHouses(){
 	$.post(
 		"${ctx}/getHotHouses",function(data){
+			data=JSON.parse(data);
 			var houses=data.rows;
 			var htm="";
 			if(houses.length>0){

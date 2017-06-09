@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50619
 File Encoding         : 65001
 
-Date: 2017-06-02 16:21:38
+Date: 2017-06-09 13:33:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,7 +60,7 @@ CREATE TABLE `t_house` (
   `category` varchar(50) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`roomid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_house
@@ -83,6 +83,7 @@ INSERT INTO t_house VALUES ('20', 'A501', '600', '双人间', '/image//833dd0da-
 INSERT INTO t_house VALUES ('22', 'A1106', '1321', '商务间', '/image//e8e1efa8-66da-4201-adb4-1a3d7633723b.jpg');
 INSERT INTO t_house VALUES ('23', 'A1106', '888', '商务间', '/image//34941e64-1207-40c9-b91c-062538afc8f4.gif');
 INSERT INTO t_house VALUES ('24', 'A1107', '2888', '商务间', '/image//0fc6f29b-f1a4-4532-84f5-9d4ef3b078fe.jpg');
+INSERT INTO t_house VALUES ('25', 'A1106', '144', '单人间', '/image//8ca2c4a6-b65e-4e30-adb6-af1d0e4e2cd9.jpg');
 
 -- ----------------------------
 -- Table structure for `t_liuyan`
@@ -114,21 +115,24 @@ CREATE TABLE `t_order` (
   `userid` int(11) DEFAULT NULL,
   `roomid` int(11) DEFAULT NULL,
   `orderid` int(11) NOT NULL AUTO_INCREMENT,
+  `orderCodes` varchar(32) DEFAULT NULL,
   `reserveTime` varchar(30) DEFAULT NULL,
   `createTime` varchar(30) DEFAULT NULL,
-  `orderStatus` varchar(11) DEFAULT '',
+  `orderStatus` int(11) DEFAULT NULL,
   `totalPrice` double(10,0) DEFAULT NULL,
+  `contactPerson` varchar(32) DEFAULT NULL,
+  `mobilePhone` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`orderid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO t_order VALUES ('2', '13', '1', '2017-05-20', '2017-05-20', '1', null);
-INSERT INTO t_order VALUES ('1', '7', '9', '2017-05-20', '2017-05-20', '1', null);
-INSERT INTO t_order VALUES ('1', '6', '12', null, null, null, null);
-INSERT INTO t_order VALUES ('6', '11', '13', null, null, null, null);
-INSERT INTO t_order VALUES ('1', '10', '14', null, null, null, null);
+INSERT INTO t_order VALUES ('9', '11', '21', '9ebf10465010', '2017-06-06', '2017-06-06 12:58:25', '1', '550', '李小朋', '18330212740');
+INSERT INTO t_order VALUES ('9', '25', '22', 'eb5e650ea2c7', '2017-06-07', '2017-06-06 12:59:16', '1', '144', '李小朋', '18330212740');
+INSERT INTO t_order VALUES ('12', '25', '23', '1e252836bbff', '2017-06-06', '2017-06-06 01:32:26', '0', '144', '张权', '18330212740');
+INSERT INTO t_order VALUES ('12', '10', '24', 'c195fd78b2a6', '2017-06-08', '2017-06-07 01:17:45', '0', '500', '张权', '123');
+INSERT INTO t_order VALUES ('9', '4', '25', 'feec7f19413a', '2017-06-08', '2017-06-08 05:10:02', '1', '500', '李小朋', '17801002476');
 
 -- ----------------------------
 -- Table structure for `t_user`
@@ -142,7 +146,7 @@ CREATE TABLE `t_user` (
   `mobile` varchar(15) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
@@ -152,5 +156,7 @@ INSERT INTO t_user VALUES ('4', null, 'joha', '13231', '15059456171', '3232@qq.c
 INSERT INTO t_user VALUES ('5', null, 'fangel123', '123123', '15059456171', '123@qq.com');
 INSERT INTO t_user VALUES ('6', null, 'fangel321', '123123', '15059456172', '123@qq.com');
 INSERT INTO t_user VALUES ('7', null, 'fangel123123', '123123', '15059456172', '1234@qq.com');
-INSERT INTO t_user VALUES ('9', null, 'lxp', '123', '18330212740', '865591015@qq.com');
-INSERT INTO t_user VALUES ('10', null, 'zq', '123', '123', '');
+INSERT INTO t_user VALUES ('9', '李小朋', 'lxp', '123', '18330212740', '865591015@qq.com');
+INSERT INTO t_user VALUES ('10', '张权', 'zq', '123', '123', '');
+INSERT INTO t_user VALUES ('11', '李小朋', 'lixiaopeng', '123', '17801002476', '865591015@qq.com');
+INSERT INTO t_user VALUES ('12', '张权', 'zhangquan', '123', '17801002476', '865591015@qq.com');

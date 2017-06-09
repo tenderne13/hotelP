@@ -47,7 +47,7 @@ public class IndexController {
 	}
 	/*--------------------------页面跳转方法结束-----------------------------*/
 	//获取首页热门房间
-	@RequestMapping(value="getHotHouses",produces="application/json; charset=utf-8")
+	@RequestMapping(value="getHotHouses")
 	@ResponseBody
 	public String getHotHouses(){
 		Page<Hotel> page=new Page<Hotel>();
