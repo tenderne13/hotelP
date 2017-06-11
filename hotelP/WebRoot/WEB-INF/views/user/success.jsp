@@ -22,6 +22,10 @@
 	function reserve(){
 		$("#middle").load("${ctx}/position?meth=hotHouses");
 	}
+	//订单页面
+	function myOrder(){
+		$("#middle").load("${ctx}/user/orderList");
+	}
 </script>
 <div class="container cart">
 
@@ -37,7 +41,7 @@
 			  
 			  <div class="layui-form-item" style="text-align:center">
 			    <div class="layui-inline">
-			    	<button class="layui-btn layui-btn-warm layui-btn-big" onclick="" style="width:200px"><i class="layui-icon">&#xe63c;</i>&nbsp;&nbsp;支付订单</button>
+			    	<button class="layui-btn layui-btn-warm layui-btn-big" onclick="myOrder();" style="width:200px"><i class="layui-icon">&#xe63c;</i>&nbsp;&nbsp;支付订单</button>
 			    </div>
 			    <div class="layui-inline">
 			    	<button class="layui-btn  layui-btn-big" onclick="reserve();" style="width:200px"><i class="layui-icon">&#xe63c;</i>&nbsp;&nbsp;继续预定</button>

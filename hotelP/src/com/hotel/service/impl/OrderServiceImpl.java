@@ -39,4 +39,9 @@ public class OrderServiceImpl implements OrderService{
 		return page;
 	}
 
+	@Override
+	public boolean checkRoomStatus(Order order) {
+		return orderDao.checkRoomStatus(order);
+	}
+
 }

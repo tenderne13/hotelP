@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hotel.common.MD5Util;
 import com.hotel.common.Page;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
@@ -100,6 +101,8 @@ public class UserController {
 	@RequestMapping("login")
 	@ResponseBody
 	public String login(User user,HttpSession httpSession){
+		String MD5Pass=MD5Util.toMd5String(user.getPassword());
+		user.setPassword(MD5Pass);
 		User existUser = userService.checkLogin(user);
 		if(existUser!=null){
 			httpSession.setAttribute("user", existUser);

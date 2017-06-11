@@ -12,12 +12,15 @@ import com.hotel.common.Page;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
 import com.hotel.service.HotelService;
+import com.hotel.service.OrderService;
 
 @Controller
 public class IndexController {
 	
 	@Autowired
 	private HotelService hotelService;
+	@Autowired
+	private OrderService orderService;
 	
 	
 	/*------------------------------引入依赖------------------------------------*/
@@ -70,5 +73,15 @@ public class IndexController {
 		order.setReserveTime(reserveTime);
 		hotelService.selectHousePage(page, hotel,order);
 		return page.toJson();
+	}
+	
+	@RequestMapping("checkRoomStatus")
+	@ResponseBody
+	public String checkRoomStatus(Order order){
+		boolean status = orderService.checkRoomStatus(order);
+		if(status){
+			return "empty";
+		}
+		return "full";
 	}
 }

@@ -6,6 +6,65 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript">
+
+	$(function(){
+		getDate();
+		getRoomState();
+		
+	});
+	
+	
+	function getRoomState(){
+		var reserTime=$("#reserveTime").val();
+		if(reserTime.trim()==''){
+			layer.tips('请选择预定日期','#reserveTime');
+			return false;
+		}
+		$.post(
+			"${ctx}/checkRoomStatus",{
+				roomId:${hotel.roomId},
+				reserveTime:reserTime
+			},function(data){
+				var htm="";
+				if(data=='empty'){
+					htm+='<div class="layui-form-item">'+
+							       ' <div class="layui-input-block">'+
+							     ' <button type="button" class="layui-btn"  style="width:140px;height:40px;" onclick="initPay(${hotel.roomId})">预定</button>'+
+							    '</div>'+
+					   	  '</div>';
+				}else{
+					htm+='<div class="layui-form-item">'+
+							       ' <div class="layui-input-block">'+
+							     ' <button type="button" class="layui-btn layui-btn-disabled"  style="width:140px;height:40px;">已预定</button>'+
+							    '</div>'+
+					   	  '</div>';
+				}
+				
+				$("#buy").empty();
+				$("#buy").append(htm);
+			}
+		);
+	}
+	
+	//获取今天的日期
+	function getDate(){
+		var date=new Date();
+		var year=date.getFullYear();
+		var month=(date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1;
+		var day=date.getDate()<10?"0"+date.getDate():date.getDate();
+		var time=year+"-"+month+"-"+day;
+		$("#reserveTime").val(time);
+	}
+	
+	//确认订单页面
+	function initPay(roomId){
+		var reserveTime=$("#reserveTime").val();
+		openMiddle("${ctx}/user/initPay?roomId="+roomId+"&reserveTime="+reserveTime);
+	}
+	
+</script>
 </head>
 <body>
 <div class="container productContent">
@@ -38,19 +97,28 @@
 			<form id="cartForm" action="${ pageContext.request.contextPath }/cart_addCart.action" method="post" >
 				<input type="hidden" name="pid" />
 				<div class="action">
-						<dl class="quantity">
-							<dt>购买数量:</dt>
-							<dd>
-								<input id="count" name="count" value="1" maxlength="4" onpaste="return false;" type="text"/>
-							</dd>
-							<dd>
-								件
-							</dd>
-						</dl>
+						<form class="layui-form" id="orderForm" action="">
+							<div class="layui-form-item">
+							  <div class="layui-inline">
+							      <label class="layui-form-label">预订日期</label>
+							      <div class="layui-input-inline">
+							        <input type="text" name="reserveTime" id="reserveTime"  readonly="readonly" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this,min: laydate.now(0)})">
+							      </div>
+						   	  </div>
+						   	  <div class="layui-inline">
+							        <div class="layui-input-inline">
+								      <button type="button" class="layui-btn" onclick="getRoomState();">查询</button>
+								    </div>
+						   	  </div>
+						    </div> 
+						   	  <hr>
+						   	  
+						   	  <div id="buy">
+						   	  
+						   	  </div>
+							
+						</form>
 						
-					<div class="buy">
-							<input id="addCart" class="addCart" value="加入购物车" type="button" onclick="saveCart()"/>
-					</div>
 				</div>
 			</form>
 			<div id="bar" class="bar">

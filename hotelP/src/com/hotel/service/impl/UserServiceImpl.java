@@ -1,8 +1,13 @@
 package com.hotel.service.impl;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import com.hotel.common.MD5Util;
 import com.hotel.dao.UserDao;
 import com.hotel.po.Order;
 import com.hotel.po.User;
@@ -22,6 +27,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void registUser(User user) {
+		String md5Pass=MD5Util.toMd5String(user.getPassword());
+		user.setPassword(md5Pass);
 		userDao.registUser(user);
 	}
 

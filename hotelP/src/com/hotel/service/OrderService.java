@@ -8,4 +8,6 @@ import com.hotel.po.User;
 public interface OrderService {
 	//获取订单分页数据
 	Page<Order> selectOrderPage(Page<Order> page,Order order,Hotel hotel,User user);
+	//查询某一天房屋的订单状态
+	boolean checkRoomStatus(Order order);
 }

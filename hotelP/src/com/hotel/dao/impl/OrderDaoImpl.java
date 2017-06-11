@@ -135,4 +135,16 @@ public class OrderDaoImpl implements OrderDao{
 		int count = jdbcTemplate.queryForInt(sql.toString());
 		return count;
 	}
+
+	@Override
+	public boolean checkRoomStatus(Order order) {
+		String sql="select count(*) from t_order WHERE roomid ="+order.getRoomId()
+				   +" AND reserveTime='"+order.getReserveTime()+"' AND orderStatus !=0";
+		
+		int count = jdbcTemplate.queryForInt(sql);
+		if(count>0){
+			return false;
+		}
+		return true;
+	}
 }

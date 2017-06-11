@@ -14,4 +14,6 @@ public interface OrderDao {
 	List<Order> getOrderList(Page<Order> page,Map<String, Object> parMap);
 	//获取订单数目
 	Integer getOrderCount(Map<String, Object> parMap);
+	//查询某一天房屋的订单状态
+	boolean checkRoomStatus(Order order);
 }
