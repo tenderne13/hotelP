@@ -48,6 +48,12 @@ public class IndexController {
 		model.addAttribute("category",category);
 		return "index/roomList";
 	}
+	
+	//vue
+	@RequestMapping("vuePage")
+	public String vuePage(){
+		return "index/vue";
+	}
 	/*--------------------------页面跳转方法结束-----------------------------*/
 	//获取首页热门房间
 	@RequestMapping(value="getHotHouses")

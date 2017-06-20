@@ -52,7 +52,7 @@ $(function(){
 		  </c:if>
 		  
 		  
-		  <a href="javaScript:;" >会员中心</a>
+		  <a href="javaScript:;"  onclick="openMiddle('${ctx }/vuePage')">会员中心</a>
 		</span>
 	</div>
 </div>

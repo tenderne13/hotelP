@@ -3,6 +3,7 @@ package com.hotel.controller;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,5 +25,9 @@ public class TestControllerTest {
 		String sql="select * from t_hotel";
 		List list= jdbcTemplate.queryForList(sql);
 		System.out.println(list);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", "").substring(0,16));
 	}
 }
