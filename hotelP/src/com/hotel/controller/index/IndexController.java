@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+
 import com.hotel.common.Page;
+import com.hotel.common.util.PostUtil;
 import com.hotel.po.Hotel;
 import com.hotel.po.Order;
 import com.hotel.service.HotelService;
@@ -54,6 +56,12 @@ public class IndexController {
 	public String vuePage(){
 		return "index/vue";
 	}
+	
+	//火车票查询页面
+	@RequestMapping("trainList")
+	public String trainList(){
+		return "index/trainList";
+	}
 	/*--------------------------页面跳转方法结束-----------------------------*/
 	//获取首页热门房间
 	@RequestMapping(value="getHotHouses")
@@ -89,5 +97,14 @@ public class IndexController {
 			return "empty";
 		}
 		return "full";
+	}
+	
+	
+	//查询时刻信息
+	@RequestMapping("queryLeftTicket")
+	@ResponseBody
+	public String queryLeftTicket(String url,String fromStation,String toStation){
+		url="https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2017-06-29&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=BMP&purpose_codes=ADULT";
+		return  PostUtil.doGetStrs(url);
 	}
 }
