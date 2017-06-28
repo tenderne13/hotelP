@@ -62,7 +62,7 @@ $(function(){
 	  <li class="layui-nav-item "><a href="#" onclick="openMiddle('${ctx }/roomList?category=单人间')">单人间预订</a></li>
 	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList?category=双人间')">双人间预订</a></li>
 	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList?category=商务间')">商务间预订</a></li>
-	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/trainList')">火车票查询</a></li>
+	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/trainList')">今日头条</a></li>
 	  <li class="layui-nav-item"><a href="#" onclick="openMiddle('${ctx }/roomList')">留言板</a></li>
 	</ul>	
 	

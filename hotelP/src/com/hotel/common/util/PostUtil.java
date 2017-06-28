@@ -222,6 +222,6 @@ public class PostUtil {
 	public static void main(String[] args) {
 		String url ="https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2017-06-29&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=BMP&purpose_codes=ADULT";
 		String url2="http://www.toutiao.com/api/pc/feed/?min_behot_time=0&category=__all__&utm_source=toutiao&widen=1&tadrequire=true&as=A12599F553877CD&cp=5953A7473C8D5E1";
-		System.out.println(doGetStrs(url));
+		System.out.println(doGetStrs(url2));
 	}
 }

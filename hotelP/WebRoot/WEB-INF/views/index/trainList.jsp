@@ -17,16 +17,40 @@
 			}
 			//getHotHouses();
 			getDate();
-			$.get(
-				"http://www.toutiao.com/api/pc/feed/?min_behot_time=0&category=__all__&utm_source=toutiao&widen=1&tadrequire=true&as=A12599F553877CD&cp=5953A7473C8D5E1",
-						function(data){
-					console.log(data);
-					alert(data);
-				}
-			);
 			//doSearch(currPage);
+			getNews();
 		});
 
+		//获取今日头条消息
+		function getNews(){
+			var attr=getParam();
+			attr=JSON.parse(attr);
+			$.get(
+				"${ctx}/news",attr,function(data){
+					data=JSON.parse(data).data;
+					var htm="";
+					if(data!=undefined && data.length>0){
+						for(var i=0;i<data.length;i++){
+							if(data[i].is_feed_ad==false){
+								htm+=    '<tr>'+
+								'<td><img src="'+data[i].image_url+'" id="image" height="80" width="80"></td>'+
+								'<td>'+data[i].title+'</td>'+
+								'<td>'+data[i].chinese_tag+'</td>'+
+								'<td>'+data[i].source+'</td>'+
+								'<td>'+
+							     '<button class="layui-btn" onclick="initNews(\''+data[i].source_url+'\')">查看</button>'+
+							     '</td>'+
+							     '</tr>';
+							}
+							
+						}
+					}
+					$("#bodyContent").append(htm);
+				}		
+			);
+		}
+		
+		
 		//获取今天的日期
 		function getDate(){
 			var date=new Date();
@@ -36,65 +60,11 @@
 			var time=year+"-"+month+"-"+day;
 			$("#reserveTime").val(time);
 		}
-		//查询列表方法
-		function doSearch(pageNo){
-			$.post(
-				"${ctx}/queryLeftTicket",{
-					pageNo:pageNo,
-					pageSize:pageSize,
-					reserveTime:$("#reserveTime").val(),
-					name:$("#name").val(),
-					category:$("#category").val()
-				},function(data){
-					data = JSON.parse(data);
-					var result=data.data.result;
-					var list=b2(result);
-					console.log(list[0]);
-					alert(list[0].queryLeftNewDTO.arrive_time);
-	        		/*laypage({
-			  		     cont: 'page',
-			  		     pages: Math.ceil(data.total/pageSize), //得到总页数
-			  		     groups: pageSize,
-			  		     skin:'#c2c2c2',
-			  		     //first:true,
-			  		     //last:true,
-			  		     curr:data.pageNo,
-			  		     jump: function(obj,first){
-			  		    	 $("#bodyContent").empty();
-			  		    	 $("#bodyContent").append(createRender(obj.curr,rows));
-			  		    	 if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
-			  		    		//$("#pager").val(obj.curr);
-			                	doSearch(obj.curr);
-			                 }
-			  		    }
-			  		  });	*/				
-				}
-			);
-		}
 		
-		//创建列表渲染器
-		function createRender(curr,data){
-			var arr=[];
-			var str='';
-			layui.each(data,function(index,item){
-				str=    '<tr>'+
-						'<td><img src="${ctx}/'+item.photo+'" id="image" height="80" width="80"></td>'+
-						'<td>'+item.name+'</td>'+
-						'<td>'+item.category+'</td>'+
-						'<td>'+item.price+'</td>';
-				if(item.status==1){
-					str+='<td><button class="layui-btn layui-btn-warm" onclick="openMiddle(\'${ctx}/initRoomDetail?roomId='+item.roomId+'\')"><i class="layui-icon">&#xe615;</i></button>'+
-						 '<button class="layui-btn layui-btn-disabled">已预订</button></td>'+
-					 	 '</tr>';
-				}else{
-					str+='<td><button class="layui-btn layui-btn-warm" onclick="openMiddle(\'${ctx}/initRoomDetail?roomId='+item.roomId+'\')"><i class="layui-icon">&#xe615;</i></button>'+
-						     '<button class="layui-btn" onclick="initPay(\''+item.roomId+'\')">预订</button></td></tr>';
-				}
-				
-				arr.push(str);
-						
-			});
-			return arr.join('');
+		//打开今日头条新闻
+		function initNews(sourceUrl){
+			var baseurl="http://www.toutiao.com/";
+			window.open(baseurl+sourceUrl);
 		}
 		
 		
@@ -110,7 +80,7 @@
 <div class="container index">
 		
 		
-		<div id="search">
+		<!-- <div id="search">
 			<form class="layui-form" action="">
 			  <input type="hidden" name="category" id="category" value="${category }"/>
 			  <div class="layui-inline">
@@ -131,7 +101,7 @@
 				    </div>
 		   	  </div>
 			</form>
-		</div>
+		</div> -->
 		<div class="content" id="content">
 			<table class="layui-table"  lay-skin="row">
 			  <colgroup>
@@ -144,9 +114,9 @@
 			  <thead>
 			    <tr>
 				    <th>照片</th>
-					<th>房间编号</th>
-					<th>房间类别</th>
-					<th>价格</th>
+					<th>标题</th>
+					<th>类别</th>
+					<th>来源</th>
 					<th>操作</th>
 			    </tr> 
 			  </thead>

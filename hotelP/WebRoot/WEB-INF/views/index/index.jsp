@@ -19,6 +19,7 @@
 <script type="text/javascript" src="${ctx}/static/layui/lay/dest/layui.all.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"  src="${ctx}/static/js/ajaxfileupload/ajaxfileupload.js"></script>
+<script type="text/javascript"  src="${ctx}/static/js/toutiao.js"></script>
 <style type="text/css">
 	#middle{
 		margin-top:10px;
