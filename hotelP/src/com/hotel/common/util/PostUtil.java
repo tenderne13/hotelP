@@ -20,6 +20,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -138,40 +139,18 @@ public class PostUtil {
 		return jsonObject;
 	}
 	
-	/**
-	 * doGet请求方法
-	 * @param url
-	 * @return
-	 */
-	public static JSONObject doGetStr(String url){
+	public static String doGetStr(String url){
 		DefaultHttpClient httpClient=new DefaultHttpClient();
 		enableSSL(httpClient);
 		HttpGet httpGet=new HttpGet(url);
 		httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
-		httpGet.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null%7C1498637798; __tasessionId=zlbp5mo9d1498642366073; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2.1874914792.1498642370;Connection: keep-alive");
-		System.out.println(httpGet.getHeaders("Cookie"));
-		JSONObject jsonObject=null;
-		try {
-			HttpResponse response=httpClient.execute(httpGet);
-			HttpEntity entity=response.getEntity();
-			if(entity!=null){
-				String result =EntityUtils.toString(entity,"UTF-8");
-				jsonObject=JSONObject.parseObject(result);
-			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return jsonObject;
-	}
-	public static String doGetStrs(String url){
-		DefaultHttpClient httpClient=new DefaultHttpClient();
-		enableSSL(httpClient);
-		HttpGet httpGet=new HttpGet(url);
-		httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
-		httpGet.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null%7C1498637798; __tasessionId=zlbp5mo9d1498642366073; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2.1874914792.1498642370;Connection: keep-alive");
-		System.out.println(httpGet.getHeaders("Cookie"));
+		httpGet.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA"+
+							"%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null"+
+							"%7C1498702598; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2"+
+							".1874914792.1498642370; _ba=BA0.2-20170306-51d9e-7ViJkABCocglT3ZWa1Rt; utm_source=toutiao; __tasessionId"+
+							"=w4uunxnea1498706518539; sso_login_status=1; login_flag=31e611b5884dc27e1524824fd3f0a04f; sessionid=6aaf97545a4502872be1747b53a80b3c"+
+							"; uid_tt=f8d062cc0c5b920d3729a23fdf443978; sid_tt=6aaf97545a4502872be1747b53a80b3c; sid_guard='6aaf97545a4502872be1747b53a80b3c"+
+							"|1498706541|2591999|Sat\054 29-Jul-2017 03:22:20 GMT'");
 		try {
 			HttpResponse response=httpClient.execute(httpGet);
 			HttpEntity entity=response.getEntity();
@@ -194,13 +173,20 @@ public class PostUtil {
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	public static JSONObject doPostStr(String url,Map<String, String> params){
+	public static String doPostStr(String url,Map<String, String> params){
 		DefaultHttpClient httpClient=new DefaultHttpClient();
 		HttpPost httpPost=new HttpPost(url);
 		httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
-		httpPost.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null%7C1498637798; __tasessionId=zlbp5mo9d1498642366073; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2.1874914792.1498642370;Connection: keep-alive");
+		httpPost.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA"+
+				"%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null"+
+				"%7C1498702598; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2"+
+				".1874914792.1498642370; _ba=BA0.2-20170306-51d9e-7ViJkABCocglT3ZWa1Rt; utm_source=toutiao; __tasessionId"+
+				"=w4uunxnea1498706518539; sso_login_status=1; login_flag=31e611b5884dc27e1524824fd3f0a04f; sessionid=6aaf97545a4502872be1747b53a80b3c"+
+				"; uid_tt=f8d062cc0c5b920d3729a23fdf443978; sid_tt=6aaf97545a4502872be1747b53a80b3c; sid_guard='6aaf97545a4502872be1747b53a80b3c"+
+				"|1498706541|2591999|Sat\054 29-Jul-2017 03:22:20 GMT'");
 		System.out.println(httpPost.getHeaders("Cookie"));
 		JSONObject jsonObject=null;
+		String result=null;
 		try {
 			if(params!=null){
 				List<NameValuePair> list=new ArrayList<NameValuePair>();
@@ -211,17 +197,16 @@ public class PostUtil {
 				httpPost.setEntity(new UrlEncodedFormEntity(list, HTTP.UTF_8));
 			}
 			HttpResponse response=httpClient.execute(httpPost);
-			String result=EntityUtils.toString(response.getEntity(),"UTF-8");
-			jsonObject=JSONObject.parseObject(result);
+			result=EntityUtils.toString(response.getEntity(),"UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return jsonObject;
+		return result;
 	}
 	
 	public static void main(String[] args) {
 		String url ="https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2017-06-29&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=BMP&purpose_codes=ADULT";
 		String url2="http://www.toutiao.com/api/pc/feed/?min_behot_time=0&category=__all__&utm_source=toutiao&widen=1&tadrequire=true&as=A12599F553877CD&cp=5953A7473C8D5E1";
-		System.out.println(doGetStrs(url2));
+		System.out.println(doGetStr(url2));
 	}
 }

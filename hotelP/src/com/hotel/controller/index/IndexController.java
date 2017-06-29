@@ -106,16 +106,15 @@ public class IndexController {
 	@ResponseBody
 	public String queryLeftTicket(String url,String fromStation,String toStation){
 		url="https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2017-06-29&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=BMP&purpose_codes=ADULT";
-		return  PostUtil.doGetStrs(url);
+		return  PostUtil.doGetStr(url);
 	}
 	
 	@RequestMapping("news")
 	@ResponseBody
-	public String news(String as,String cp){
-		//String url2="http://www.toutiao.com/api/pc/feed/?min_behot_time=0&category=__all__&utm_source=toutiao&widen=1&tadrequire=true&as="+as+"&cp="+cp;
-		String TOUTIAOURL = "http://www.toutiao.com/api/article/feed/?category=__all__&utm_source=toutiao&widen=1";
-		String url = TOUTIAOURL + "&max_behot_time="+0+"&max_behot_time_tmp="+0;
+	public String news(String as,String cp,@RequestParam(defaultValue="0") String max_behot_time,@RequestParam(defaultValue="__all__")String category){
+		String TOUTIAOURL = "http://www.toutiao.com/api/article/feed/?category="+category+"&utm_source=toutiao&widen=1&tadrequire=true";
+		String url = TOUTIAOURL + "&max_behot_time="+max_behot_time+"&max_behot_time_tmp="+max_behot_time;
 		url+= "&as=" + as+ "&cp=" + cp;
-		return PostUtil.doGetStrs(url);
+		return PostUtil.doGetStr(url);
 	}
 }

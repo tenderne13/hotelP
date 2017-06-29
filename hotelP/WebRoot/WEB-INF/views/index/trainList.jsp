@@ -8,44 +8,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>酒店</title>
+<style type="text/css">
+	.side{
+		bottom:0;
+		right:0;
+		overflow-x:hidden;
+		position:fixed;
+		top:0;
+		z-index:999;
+	}
+</style>
 <script type="text/javascript">
-		var currPage;
-		var pageSize=5;
+		var loading;
 		$(function(){
-			if(currPage==undefined||!currPage){
-				currPage=1;
-			}
-			//getHotHouses();
-			getDate();
-			//doSearch(currPage);
-			getNews();
+			getData();
 		});
 
+		function getNews(category){
+			$("#category").val(category);
+			$("#nextTime").val("0");
+			$("#bodyContent").empty();
+			getData();
+		}
+		
+		
 		//获取今日头条消息
-		function getNews(){
+		function getData(){
+			loading=layer.load(1,{shadeClose:true,shade:0.4});;
 			var attr=getParam();
 			attr=JSON.parse(attr);
+			attr.category=$("#category").val();
+			attr.max_behot_time=$("#nextTime").val();
 			$.get(
 				"${ctx}/news",attr,function(data){
+					var hasMore=JSON.parse(data).has_more;
+					if(hasMore){
+						$("#nextTime").val(JSON.parse(data).next.max_behot_time);
+						$("#more").html("点击加载更多<i class='layui-icon'>&#x1002;</i>");
+						$("#more").attr("onclick","getData()");
+					}else{
+						$("#more").html("没有更多了。。。");
+					}
 					data=JSON.parse(data).data;
 					var htm="";
 					if(data!=undefined && data.length>0){
 						for(var i=0;i<data.length;i++){
 							if(data[i].is_feed_ad==false){
-								htm+=    '<tr>'+
-								'<td><img src="'+data[i].image_url+'" id="image" height="80" width="80"></td>'+
-								'<td>'+data[i].title+'</td>'+
-								'<td>'+data[i].chinese_tag+'</td>'+
-								'<td>'+data[i].source+'</td>'+
-								'<td>'+
-							     '<button class="layui-btn" onclick="initNews(\''+data[i].source_url+'\')">查看</button>'+
-							     '</td>'+
-							     '</tr>';
+								if(data[i].image_url!=undefined){
+									htm+=    '<tr>'+
+									'<td><a href="javaScript:;" onclick="initNews(\''+data[i].source_url+'\')"><img src="'+data[i].image_url+'" id="image" height="80" width="80"></a></td>'+
+									'<td><a href="javaScript:;" onclick="initNews(\''+data[i].source_url+'\')">'+data[i].title+'</a></td>'+
+									'<td>'+data[i].source+'</td>'+
+									'<td>'+
+								     '<button class="layui-btn layui-btn-primary" onclick="initNews(\''+data[i].source_url+'\')"><i class="layui-icon">&#xe64c;</i></button>'+
+								     '</td>'+
+								     '</tr>';
+								}else{
+									htm+=    '<tr>'+
+									'<td><a href="javaScript:;" onclick="initNews(\''+data[i].source_url+'\')"><img src="${ctx}/static/images/logo.png" id="image" height="80" width="80"></a></td>'+
+									'<td><a href="javaScript:;" onclick="initNews(\''+data[i].source_url+'\')">'+data[i].title+'</a></td>'+
+									'<td>'+data[i].source+'</td>'+
+									'<td>'+
+								     '<button class="layui-btn layui-btn-primary" onclick="initNews(\''+data[i].source_url+'\')"><i class="layui-icon">&#xe64c;</i></button>'+
+								     '</td>'+
+								     '</tr>';
+								}
+								
 							}
-							
 						}
 					}
 					$("#bodyContent").append(htm);
+					layer.close(loading);
 				}		
 			);
 		}
@@ -67,19 +100,32 @@
 			window.open(baseurl+sourceUrl);
 		}
 		
-		
-		function initPay(roomId){
-			var reserveTime=$("#reserveTime").val();
-			openMiddle("${ctx}/user/initPay?roomId="+roomId+"&reserveTime="+reserveTime);
-		}
 </script>
 </head>
 <body>
 
 
 <div class="container index">
-		
-		
+		<div id="type">
+			<!-- <ul class="layui-nav layui-nav-tree" lay-filter="test">-->
+			<ul class="layui-nav layui-nav-tree side" id="side"> 
+			  <li class="layui-nav-item layui-this">
+			  	  <a href="javascript:;" onclick="getNews('')">推荐</a>
+			  </li>
+			  <li class="layui-nav-item">
+			  	  <a href="javascript:;" onclick="getNews('news_hot')">热点</a>
+			  </li>
+			  <li class="layui-nav-item">
+			  	  <a href="javascript:;" onclick="getNews('news_story')">故事</a>
+			  </li>
+			  <li class="layui-nav-item">
+			  	  <a href="javascript:;" onclick="getNews('news_sports')">体育</a>
+			  </li>
+			  <li class="layui-nav-item">
+			  	  <a href="javascript:;" onclick="getNews('funny')">搞笑</a>
+			  </li>
+			</ul>			
+		</div>
 		<!-- <div id="search">
 			<form class="layui-form" action="">
 			  <input type="hidden" name="category" id="category" value="${category }"/>
@@ -103,21 +149,21 @@
 			</form>
 		</div> -->
 		<div class="content" id="content">
-			<table class="layui-table"  lay-skin="row">
+			<input type="hidden" id="category">
+			<input type="hidden" id="nextTime">
+			<table class="layui-table"  lay-even lay-skin="nob">
 			  <colgroup>
 			    <col width="100">
 			    <col>
 			    <col>
 			    <col>
-			    <col width="200">
 			  </colgroup>
 			  <thead>
 			    <tr>
-				    <th>照片</th>
+				    <!-- <th>照片</th>
 					<th>标题</th>
-					<th>类别</th>
 					<th>来源</th>
-					<th>操作</th>
+					<th>操作</th> -->
 			    </tr> 
 			  </thead>
 			  <tbody id="bodyContent">
@@ -125,8 +171,9 @@
 			  
 			  </tbody>
 			</table>
+			<div class="laypage_next" id="page"><a href="javaScript:;" id="more"></a></div>
 		</div>
-		<div class="loading-more" id="page"></div>
+		
 		
 </div>
 <script type="text/javascript">
