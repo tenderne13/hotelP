@@ -143,7 +143,13 @@ public class PostUtil {
 		DefaultHttpClient httpClient=new DefaultHttpClient();
 		enableSSL(httpClient);
 		HttpGet httpGet=new HttpGet(url);
+		httpGet.setHeader("Host", "www.toutiao.com");
 		httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
+		httpGet.setHeader("Accept","text/javascript, text/html, application/xml, text/xml, */*");
+		httpGet.setHeader("Accept-Language","zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpGet.setHeader("X-Requested-With","XMLHttpRequest");
+		httpGet.setHeader("Content-Type","text/*, application/xml");
+		httpGet.setHeader("Connection","keep-alive");
 		httpGet.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA"+
 							"%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null"+
 							"%7C1498702598; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2"+
@@ -176,14 +182,20 @@ public class PostUtil {
 	public static String doPostStr(String url,Map<String, String> params){
 		DefaultHttpClient httpClient=new DefaultHttpClient();
 		HttpPost httpPost=new HttpPost(url);
+		httpPost.setHeader("Host", "www.toutiao.com");
 		httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
+		httpPost.setHeader("Accept","text/javascript, text/html, application/xml, text/xml, */*");
+		httpPost.setHeader("Accept-Language","zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpPost.setHeader("X-Requested-With","XMLHttpRequest");
+		httpPost.setHeader("Content-Type","text/*, application/xml");
+		httpPost.setHeader("Connection","keep-alive");
 		httpPost.setHeader("Cookie", "csrftoken=30dcf3990fa6aae5e2bc32ce86e5ec48; tt_webid=6436619940845880834; WEATHER_CITY=%E5%8C%97%E4%BA"+
-				"%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null"+
-				"%7C1498702598; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2"+
-				".1874914792.1498642370; _ba=BA0.2-20170306-51d9e-7ViJkABCocglT3ZWa1Rt; utm_source=toutiao; __tasessionId"+
-				"=w4uunxnea1498706518539; sso_login_status=1; login_flag=31e611b5884dc27e1524824fd3f0a04f; sessionid=6aaf97545a4502872be1747b53a80b3c"+
-				"; uid_tt=f8d062cc0c5b920d3729a23fdf443978; sid_tt=6aaf97545a4502872be1747b53a80b3c; sid_guard='6aaf97545a4502872be1747b53a80b3c"+
-				"|1498706541|2591999|Sat\054 29-Jul-2017 03:22:20 GMT'");
+							"%AC; UM_distinctid=15cee0bbd12d8-0b0e1e2319539d-4d584131-13c680-15cee0bbd13139; CNZZDATA1259612802=1009653813-1498637798-null"+
+							"%7C1498702598; uuid='w:519f60b4044649639aedec9bd897dd23'; _ga=GA1.2.1944013063.1498642370; _gid=GA1.2"+
+							".1874914792.1498642370; _ba=BA0.2-20170306-51d9e-7ViJkABCocglT3ZWa1Rt; utm_source=toutiao; __tasessionId"+
+							"=w4uunxnea1498706518539; sso_login_status=1; login_flag=31e611b5884dc27e1524824fd3f0a04f; sessionid=6aaf97545a4502872be1747b53a80b3c"+
+							"; uid_tt=f8d062cc0c5b920d3729a23fdf443978; sid_tt=6aaf97545a4502872be1747b53a80b3c; sid_guard='6aaf97545a4502872be1747b53a80b3c"+
+							"|1498706541|2591999|Sat\054 29-Jul-2017 03:22:20 GMT'");
 		System.out.println(httpPost.getHeaders("Cookie"));
 		JSONObject jsonObject=null;
 		String result=null;

@@ -48,6 +48,7 @@
 						$("#more").attr("onclick","getData()");
 					}else{
 						$("#more").html("没有更多了。。。");
+						$("#more").attr("onclick","");
 					}
 					data=JSON.parse(data).data;
 					var htm="";
