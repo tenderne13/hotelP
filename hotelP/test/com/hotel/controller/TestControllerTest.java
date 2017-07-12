@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class TestControllerTest {
@@ -16,15 +18,14 @@ public class TestControllerTest {
 	private ApplicationContext applicationContext;
 	@Before
 	public void setUp()throws Exception{
-		applicationContext=new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		applicationContext=new ClassPathXmlApplicationContext("spring/applicationContext-redis.xml");
 	}
 
 	@Test
 	public void jdbcTest(){
-		JdbcTemplate jdbcTemplate=(JdbcTemplate) applicationContext.getBean("jdbcTemplate");
-		String sql="select * from t_hotel";
-		List list= jdbcTemplate.queryForList(sql);
-		System.out.println(list);
+		RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) applicationContext.getBean("redisTemplate");
+		ListOperations<String, Object> ops = redisTemplate.opsForList();
+		System.out.println(redisTemplate.getClientList());
 	}
 	
 	public static void main(String[] args) {

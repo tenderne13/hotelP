@@ -1,11 +1,16 @@
 package com.hotel.controller.index;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
 
 
 
@@ -24,7 +29,8 @@ public class IndexController {
 	private HotelService hotelService;
 	@Autowired
 	private OrderService orderService;
-	
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 	
 	/*------------------------------引入依赖------------------------------------*/
 	@RequestMapping("index")
@@ -116,5 +122,12 @@ public class IndexController {
 		String url = TOUTIAOURL + "&max_behot_time="+max_behot_time+"&max_behot_time_tmp="+max_behot_time;
 		url+= "&as=" + as+ "&cp=" + cp;
 		return PostUtil.doGetStr(url);
+	}
+	@RequestMapping("redis")
+	@ResponseBody
+	public String redis(){
+		ValueOperations<String, Object> ops = redisTemplate.opsForValue();
+		ops.set("lxp", "据最新消息称，刚刚获悉留队的韦德又面临着离队的命运。雷霆队正在和公牛队商讨有关韦德交易。雷霆队送出伊内斯-坎特和萨马耶-克里斯顿换来公牛队的韦德和若弗里-洛韦尔涅。威少再迎超强队友，俄成三巨头即将起航，下赛季勇士的卫冕之路岌岌可危。");
+		return (String) ops.get("lxp");
 	}
 }
