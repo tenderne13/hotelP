@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.hotel.common.Page;
@@ -49,13 +51,17 @@ public class HotelServieImpl implements HotelService{
 
 
 	@Override
+	@CachePut(value="hotelDetail",key="'roomId_'+#hotel.getRoomId()")
 	public void houseEdit(Hotel hotel) {
+		System.out.println("======更新=====数据库了");
 		hotelDao.houseEdit(hotel);
 	}
 
 
 	@Override
+	@Cacheable(value="hotelDetail",key="'roomId_'+#roomId")
 	public Hotel getHouseByRoomId(Integer roomId) {
+		System.out.println("=============调用数据库了==============");
 		return hotelDao.getHouseByRoomId(roomId);
 	}
 

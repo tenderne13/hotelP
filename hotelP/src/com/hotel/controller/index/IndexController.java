@@ -127,7 +127,7 @@ public class IndexController {
 	@ResponseBody
 	public String redis(){
 		ValueOperations<String, Object> ops = redisTemplate.opsForValue();
-		ops.set("lxp", "据最新消息称，刚刚获悉留队的韦德又面临着离队的命运。雷霆队正在和公牛队商讨有关韦德交易。雷霆队送出伊内斯-坎特和萨马耶-克里斯顿换来公牛队的韦德和若弗里-洛韦尔涅。威少再迎超强队友，俄成三巨头即将起航，下赛季勇士的卫冕之路岌岌可危。");
-		return (String) ops.get("lxp");
+		ops.set("jxq", "据最新消息称，刚刚获悉留队的韦德又面临着离队的命运。雷霆队正在和公牛队商讨有关韦德交易。雷霆队送出伊内斯-坎特和萨马耶-克里斯顿换来公牛队的韦德和若弗里-洛韦尔涅。威少再迎超强队友，俄成三巨头即将起航，下赛季勇士的卫冕之路岌岌可危。");
+		return (String) ops.get("jxq");
 	}
 }

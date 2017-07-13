@@ -1,6 +1,8 @@
 package com.hotel.po;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable{
 	private Integer roomId;
 	private String name;
 	private Double price;
