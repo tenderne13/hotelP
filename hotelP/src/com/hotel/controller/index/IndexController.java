@@ -1,6 +1,7 @@
 package com.hotel.controller.index;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
@@ -121,7 +122,10 @@ public class IndexController {
 		String TOUTIAOURL = "http://www.toutiao.com/api/article/feed/?category="+category+"&utm_source=toutiao&widen=1&tadrequire=true";
 		String url = TOUTIAOURL + "&max_behot_time="+max_behot_time+"&max_behot_time_tmp="+max_behot_time;
 		url+= "&as=" + as+ "&cp=" + cp;
-		return PostUtil.doGetStr(url);
+		ListOperations<String, Object> ops= redisTemplate.opsForList();
+		String result=PostUtil.doGetStr(url);
+		ops.leftPush("news", result);
+		return result;
 	}
 	@RequestMapping("redis")
 	@ResponseBody
